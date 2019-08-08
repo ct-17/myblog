@@ -1,0 +1,7 @@
+{% load staticfiles %}
+<form method='GET' action='{% url "search:query" %}'>
+    <div class='input-group'>
+        <input type="text" placeholder="Tìm kiếm" name='q' aria-label="Search" value='{{ request.GET.q }}'>
+        <button type="submit"><i class="icofont-search"></i></button>
+    </div>
+</form>

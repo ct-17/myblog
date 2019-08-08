@@ -1,0 +1,24 @@
+{% extends "page/page.html" %}
+{% block title %}Home | CT{% endblock title %}
+{% block content %}
+           
+    <!--slider section start-->
+    {% include "blog/slider_start.html" %}
+    <!--slider section end-->
+
+    <!--Blog Area Start-->
+    <div class="blog-area section pt-100 pt-lg-80 pt-md-70 pt-sm-55 pt-xs-25 pb-xs-50">
+        <div class="container container-1520">
+            <div class="row">
+                <div class="col-lg-9">
+                    {% include "blog/list.html" %}
+                </div>
+                <div class="col-lg-3">
+                    {% include "blog/bar_summary.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Blog Area End-->
+
+{% endblock content %}

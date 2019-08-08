@@ -1,0 +1,22 @@
+{% extends "page/page.html" %}
+{% block title %}CT | Giải Trí{% endblock %}
+{% block content %}
+    <table class="table table-hover table-dark">
+        <tbody>
+            {% for i in items %}
+                <tr>
+                    <td>
+                        <a class="text-white" href="/blog/{{ i.id }}/" style="text-decoration: none;">
+                            <div class="row">
+                                <div class="col-8 col-sm-8 col-md-10">{{ i.title }}</div>
+                                <div class="col-4 col-sm-4 col-md-2"><p>{{ i.timestamp | date:"d/m/Y" }}</p></div>
+                            </div>
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <li>Không có dữ liệu.</li>
+            {% endfor %}
+        </tbody>
+    </table>   
+{% endblock %}

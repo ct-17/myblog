@@ -1,0 +1,73 @@
+{% extends "page/page.html" %}
+
+{% block title %}  CT | Tìm Kiếm {% endblock %}
+
+{% block content %}
+    <div style="background-color: #F4A460">
+        <div class='row mb-3 p-3 '>
+            {% if query %}
+                <div class='col-12 text-center'>
+                    Từ khóa:<b> {{ query }}</b>
+                </div>
+            {% else %}
+                <div class='col-12 text-center'>
+                    <h1>Bạn chưa nhập trừ khóa.</h1>
+                </div>
+            {% endif %}
+        </div>
+
+        <table class="table table-hover table-dark">
+            <tbody>
+            {% if query %}
+                {% for i in object_list %}
+                    <tr>
+                        <td>
+                            <a class="text-white" href="/blog/{{ i.id }}/" style="text-decoration: none;">
+                                <div class="row">
+                                    <div class="col-8 col-sm-8 col-md-10">{{ i.title }}</div>
+                                    <div class="col-4 col-sm-4 col-md-2"><p>{{ i.timestamp | date:"d/m/Y" }}</p></div>
+                                </div>
+                            </a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td>
+                            <p class="text-center">Không tìm thấy từ khóa.</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+        {% if object_list.has_other_pages %}
+        <div class="col-6 offset-3 text-center pagination-set">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    {% if object_list.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ object_list.previous_page_number }}" style="background-color: #696969; color: #ffffff"><<</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled ">
+                            <a class="page-link" style="background-color: #696969; color: #ffffff"><span ><<</span></a>
+                        </li>
+                    {% endif %}
+                    {% for i in page_range %}
+                        {% if object_list.number == i %}
+                            <li class="page-item active"><a class="page-link" href="#" style="background-color: #0033CC">{{i}} <span class="sr-only">(current)</span></a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{i}}" style="background-color: #696969; color: #ffffff">{{i}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if object_list.has_next %}
+                        <li class="page-item"><a class="page-link" aria-label="Next" href="?page={{object_list.next_page_number}}" style="background-color: #696969; color: #ffffff">>></a></li>
+                    {% else %}
+                        <li class="page-item disabled " ><a class="page-link" style="background-color: #696969; color: #ffffff"><span>>></span></a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

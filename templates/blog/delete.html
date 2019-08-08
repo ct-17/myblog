@@ -1,0 +1,7 @@
+<h1>Xóa bài: {{ object.title }}?</h1>
+
+<form method='POST' action="."> {% csrf_token %}
+    Bạn có muốn xóa bài này đăng này không ?
+    <input type='submit' value='Có'>
+    <a href='/blog/{{ object.id }}/'>Không</a>
+</form>
