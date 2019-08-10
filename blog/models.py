@@ -72,7 +72,7 @@ class PostModelManager(models.Manager):
 
 class PostModel(models.Model):
     id              = models.BigAutoField(primary_key=True)
-    active          = models.BooleanField(default=True) # trống trong cơ sở dữ liệu
+    active          = models.BooleanField(default=True, editable=False)
     title           = models.CharField(
                             max_length=240, 
                             verbose_name=_('Title:'), 
@@ -82,16 +82,16 @@ class PostModel(models.Model):
                                 "blank": _("This field is required, please try again.")
                             },
                             help_text=_('The title must be unique.'))
-    slug            = models.SlugField(null=True, blank=True, )
+    slug            = models.SlugField(null=True, blank=True)
     description     = models.CharField(null=True, blank=True, verbose_name=_('Description:'), max_length=1000)
     content         = RichTextUploadingField(null=True, blank=True, verbose_name=_('Content:'))
-    kind            = models.CharField(max_length=120, choices=PUBLISH_CHOICES, verbose_name=_('Kind:'))
-    view_count      = models.IntegerField(default=0, verbose_name=_('Views:'))
-    publish_date    = models.DateField(auto_now=False, auto_now_add=False, default=timezone.now, verbose_name=_('Publish Date:'))
+    kind            = models.CharField(max_length=120, choices=PUBLISH_CHOICES, verbose_name=_('Kind:'), default='entertainment')
+    view_count      = models.IntegerField(default=0, verbose_name=_('Views:'), editable=False)
+    publish_date    = models.DateField(auto_now=False, auto_now_add=False, default=timezone.now, verbose_name=_('Publish Date:'), editable=False)
     author          = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete= models.CASCADE, verbose_name=_('Author:'), related_name='author_blog1')
-    updated         = models.DateTimeField(auto_now=True)
-    timestamp       = models.DateTimeField(auto_now_add=True)
-    like            = models.IntegerField(default=0, verbose_name=_("Like:"))
+    updated         = models.DateTimeField(auto_now=True, editable=False)
+    timestamp       = models.DateTimeField(auto_now_add=True, editable=False)
+    like            = models.IntegerField(default=0, verbose_name=_("Like:"), editable=False)
 
     objects = PostModelManager()
     other = PostModelManager()
@@ -100,15 +100,11 @@ class PostModel(models.Model):
         slug_title = no_accent_vietnamese(self.title)
         self.slug = slugify(slug_title)
         self.description = self.title
-        self.kind = 'entertainment'
         super(PostModel, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = _('Post')
         verbose_name_plural = _('Post')
-
-    def __unicode__(self): #python 2
-        return smart_text(self.title) #self.title
 
     def __str__(self): #python 3
         return smart_text(self.title)
