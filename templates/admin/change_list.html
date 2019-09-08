@@ -1,5 +1,6 @@
 {% extends "admin/base.html" %}
 {% load i18n admin_urls static admin_list %}
+{% load staticfiles %}
 
 {% block extrastyle %}
   {{ block.super }}
@@ -18,7 +19,7 @@
   {% endif %}
 {% endblock %}
 
-{% block extrahead %}
+{% comment %} {% block extrahead %}
 {{ block.super }}
 {{ media.js }}
 {% endblock %}
@@ -35,7 +36,7 @@
 {% endblock %}
 {% endif %}
 
-{% block coltype %}flex{% endblock %}
+{% block coltype %}flex{% endblock %} {% endcomment %}
 
 {% block content %}
   <div id="content-main">

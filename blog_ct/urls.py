@@ -28,7 +28,7 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    path('admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include(('blog.urls', 'blog'), namespace='blog')),
     path('search/', include(('search.urls', 'search'), namespace='search')),
