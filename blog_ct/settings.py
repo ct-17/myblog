@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'blog',
     'accounts',
     'search',
+    'ct_admin',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
