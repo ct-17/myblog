@@ -1,36 +1,5 @@
-ul li {
-    list-style-type: none;
-}
-
-#content {
-    padding: 0px 0px;
-}
-
-.dashboard #content {
-    width: 100%;
-}
-#language {
-    display: inherit;
-}
-
 .Dashboard{
-content: url("{% static "images/admin/Dashboard.png" %}")
-}
-.accounts {
-content: url("{% static "images/admin/Manager.png" %}")
-}
-.Blog {
-content: url("{% static "images/admin/Blog.png" %}")
-}
-
-.User {
-content: url("{% static "images/admin/User.png" %}")
-}
-
-.PostModel {
-content: url("{% static "images/admin/PostModel.png" %}")
-}
-
-.Comment {
-content: url("{% static "images/admin/comment.png" %}")
-}
+    content: url("/static/images/admin/dashboard.svg");
+    width:20px;
+    height:20px
+    }
