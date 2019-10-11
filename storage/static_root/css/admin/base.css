@@ -1,5 +1,17 @@
 .Dashboard{
     content: url("/static/images/admin/dashboard.svg");
-    width:20px;
-    height:20px
+    width:28px;
+    height:28px
+    }
+
+#blog{
+    content: url("/static/images/admin/Blog.svg");
+    width:28px;
+    height:28px
+    }
+
+#accounts{
+    content: url("/static/images/admin/Manager.svg");
+    width:28px;
+    height:28px
     }

@@ -39,7 +39,7 @@ def post_model_create_view(request):
         form = PostModelForm()
         formset = ImageFormSet(queryset=Images.objects.none())
     template = "blog/create_post.html"
-    return render(request, template, context)
+    # return render(request, template, context)
     return render(request, template, {'form': PostModelForm, 'formset': formset}, context_instance=RequestContext(request))
 
 #@login_required

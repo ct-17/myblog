@@ -15,7 +15,6 @@ from .views import (
     )
 
 urlpatterns = [
-    # path('', post_model_list_view, name='list'),
     path('', Home, name='home'),
     path('windows/', windows, name='windows'),
     path('linux/', linux, name='linux'),

@@ -31,11 +31,11 @@ urlpatterns += i18n_patterns(
     url('admin/', admin.site.urls),
     url(r'^ct_admin/', include('ct_admin.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('', include(('blog.urls', 'blog'), namespace='blog')),
+    url('', include(('blog.urls', 'blog'), namespace='blog')),
     path('search/', include(('search.urls', 'search'), namespace='search')),
-    path('accounts/login/', LoginView.as_view(), name='login'),
-    path('accounts/register/', RegisterView.as_view(), name='register'),
-    path('accounts/logout/', LogoutView.as_view(), name='logout'),
+    url(r'^accounts/login/$', LoginView.as_view(), name='login'),
+    url(r'^accounts/register/$', RegisterView.as_view(), name='register'),
+    url(r'^accounts/logout/$', LogoutView.as_view(), name='logout'),
     prefix_default_language=True,
 )
 
