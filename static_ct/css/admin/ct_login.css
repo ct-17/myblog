@@ -1,0 +1,46 @@
+body {
+    background-color: #37474f;
+}
+
+.content {
+    padding: 3.25rem 1.25rem;
+    flex-grow: 1;
+}
+
+#card-body{
+    flex: 1 1 auto;
+    padding: 2.25rem 1.25rem 2.25rem 1.25rem;
+}
+
+.form-group-feedback {
+    position: relative;
+}
+
+.form-control {
+    padding-left: 2.1rem;
+}
+
+.form-control-feedback {
+    position: absolute;
+    top: 12;
+    color: #333;
+    padding-left: .575rem;
+    padding-right: .575rem;
+    line-height: calc(1.5385em + .875rem + 2px);
+    min-width: 1rem;
+}
+
+.text-warning-400 {
+    color: #ff7043;
+}
+
+.uniform-checker, .uniform-checker input, .uniform-checker span, .uniform-choice, .uniform-choice input, .uniform-choice span {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.form-check .uniform-checker, .form-check .uniform-choice {
+    position: absolute;
+    top: .00002rem;
+    left: 0;
+}
