@@ -18,8 +18,8 @@
 
 .label-header {
     height: 40px;
-    background-color: darkslategrey;
+    background-color: rebeccapurple;
     color: cyan;
     text-align: center;
-    line-height: 20px;
+    padding: 5%;
     }
