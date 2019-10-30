@@ -20,7 +20,7 @@ $(document).ready(function(){
             $("#action-toggle").prop("checked", true);
         }
         else {
-            $("#action-toggle").removeAttr("checked");
+            $("#action-toggle").prop('checked', false);
         }
     });
 })
