@@ -1,4 +1,118 @@
+.container-fluid {
+    background-color: white;
+}
+
+fieldset {
+    margin: 0px 20px 5px 20px;
+}
+
 #ct_button_detail {
     text-align: right;
-    padding: 10px 0px;
+    padding: 20px 20px 5px 20px;
+}
+
+#ct_button_detail a {
+    border-radius: 20px;
+}
+
+.aligned .form-row div label {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: Arial;
+    float: left;
+    width: 20%;
+    margin-top: 7px;
+}
+
+.vTextField {
+    display: block;
+    width: 80%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem
+}
+
+textarea {
+    display: block;
+    width: 80%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.form-row div {
+    width: 100%;
+}
+.form-row div select {
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+}
+
+.submit-row {
+    padding: 12px 14px;
+    margin: 0 0 20px;
+    background: #f8f8f8;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    text-align: right;
+    overflow: hidden;
+}
+
+.submit-row input {
+    color: #fff;
+    background-color: #79aec8;
+    border-color: #007bff;
+    border-radius: 20px;
+    border: none;
+    padding: 6px 20px;
+    float: left;
+    margin-right: 5px;
+}
+
+.submit-row .default {
+    color: #fff;
+    background-color: #417690;
+    border-color: #007bff;
+    border-radius: 20px;
+    border: none;
+    padding: 6px 20px;
+    text-transform: uppercase;
+    float: left;
+    margin-right: 5px;
+}
+
+.submit-row p.deletelink-box {
+    float: right;
+    margin: 0;
+    margin-top: 7px;
+}
+
+.submit-row .deletelink-box a {
+    color: #fff;
+    background-color: darkgoldenrod;
+    border-color: #007bff;
+    border-radius: 20px;
+    border: none;
+    padding: 6px 20px;
 }

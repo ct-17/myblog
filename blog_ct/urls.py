@@ -28,7 +28,7 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    # path('ckeditor/', include('ckeditor_uploader.urls')),
     path('search/', include(('search.urls', 'search'), namespace='search')),
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('accounts/register/', RegisterView.as_view(), name='register'),

@@ -3,6 +3,10 @@
     padding: 10px 0px;
 }
 
+#ct-button a {
+    border-radius: 20px;
+}
+
 #changelist table thead th.action-checkbox-column {
     width: 1.5em;
     text-align: center;
