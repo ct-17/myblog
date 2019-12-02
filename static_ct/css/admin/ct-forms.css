@@ -117,3 +117,34 @@ textarea {
     border: none;
     padding: 6px 20px;
 }
+
+.form-row div .fr-box {
+    float: right;
+    width: 80%;
+    margin-top: -30px;
+}
+
+/* .fr-toolbar .fr-btn-grp {
+    width: 23%;
+} */
+
+.fr-toolbar .fr-float-left {
+    width: 25%;
+}
+
+.fr-toolbar .fr-float-right {
+    width: 110px;
+}
+
+.fr-toolbar .fr-btn-grp {
+    margin: 0 0 0 3px;
+}
+
+.fr-toolbar .fr-command.fr-btn i, .fr-toolbar .fr-command.fr-btn svg, .fr-popup .fr-command.fr-btn i, .fr-popup .fr-command.fr-btn svg, .fr-modal .fr-command.fr-btn i, .fr-modal .fr-command.fr-btn svg {
+    margin: 5px 4px;
+    width: 22px;
+}
+
+.fr-view span:nth-last-of-type(-n+2){
+    display:none;
+    }

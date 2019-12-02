@@ -9,6 +9,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
+from froala_editor.fields import FroalaField
 
 PUBLISH_CHOICES = [
         ('windows', _('windows')),
@@ -83,8 +84,8 @@ class PostModel(models.Model):
                             help_text=_('The title must be unique.'))
     slug            = models.SlugField(null=True, blank=True)
     description     = models.CharField(null=True, blank=True, verbose_name=_('Description:'), max_length=1000)
-    # content         = RichTextUploadingField(null=True, blank=True, verbose_name=_('Content:'))
-    content         = models.TextField(null=True, blank=True, verbose_name=_('Content:'))
+    content         = FroalaField(null=True, blank=True, verbose_name=_('Content:'))
+    # content         = models.TextField(null=True, blank=True, verbose_name=_('Content:'))
     kind            = models.CharField(max_length=120, choices=PUBLISH_CHOICES, verbose_name=_('Kind:'), default='entertainment')
     view_count      = models.IntegerField(default=0, verbose_name=_('Views:'), editable=False)
     publish_date    = models.DateField(auto_now=False, auto_now_add=False, default=timezone.now, verbose_name=_('Publish Date:'), editable=False)

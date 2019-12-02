@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'froala_editor',
     'blog',
     'accounts',
     'search',
@@ -152,9 +153,6 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "storage", "media_root")
 
-CKEDITOR_UPLOAD_PATH = "uploads/"
-
-CKEDITOR_IMAGE_BACKEND = "pillow"
 
 CT_SIDE_MENU_COMPACT = getattr(settings, 'CT_SIDE_MENU_COMPACT', False)
 CT_SIDE_MENU_ITEMS = getattr(settings, 'CT_SIDE_MENU_ITEMS', None)
