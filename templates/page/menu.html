@@ -1,87 +1,55 @@
-{% load i18n %}
 {% load staticfiles %}
-
-<div class="default-header menu-right">
-    <div class="container container-1520">
-        <div class="row">
-
-            <!--Logo start-->
-            <div class="col-12 col-md-3 col-lg-2 order-md-1 order-lg-1 mt-20 mb-20">
-                <div class="logo">
-                    <a href="{{ home_url }}"><img src="{% static "images/ct5.png" %}" alt=""></a>
-                </div>
-            </div>
-            <!--Logo end-->
-
-            <!--Menu start-->
-            <div class="col-lg-5 col-12 order-md-3 order-lg-2 d-flex justify-content-center">
-                <nav class="main-menu menu-style-2">
-                    <ul>
-                        <li><a href="#">Thủ Thuật</a>
-                            <ul class="sub-menu">
-                                <li><a href="{{ windows_url }}">Windows</a></li>
-                                <li><a href="{{ linux_url }}">Linux</a></li>
+<header class="akea-header-wrap akea-header-style-plain  akea-style-splitted-menu akea-sticky-navigation akea-style-slide" data-navigation-offset=75px>
+    <div class=akea-header-background></div>
+    <div class="akea-header-container  akea-container">
+        <div class="akea-header-container-inner clearfix">
+            <div class="akea-navigation akea-item-pdlr clearfix ">
+                <div class=akea-main-menu id=akea-main-menu>
+                    <ul id=menu-main-navigation-1 class=sf-menu>
+                        <li class="menu-item menu-item-home current-menu-item akea-normal-menu"><a href="{{ home_url }}" alt="Home" class=sf-with-ul-pre>Home</a></li>
+                        <li class="menu-item menu-item-has-children akea-normal-menu"><a href="#" class=sf-with-ul-pre>Tips</a>
+                            <ul class=sub-menu>
+                                <li class="menu-item" data-size=60><a href="{{ windows_url }}">Windows</a></li>
+                                <li class="menu-item" data-size=60><a href="{{ linux_url }}">Linux</a></li>
                             </ul>
                         </li>
-                        <li><a href="{{ technology_url }}">Công Nghệ</a></li>
-                        <li><a href="{{ entertain_url }}">Giải Trí</a></li>
-                    </ul>
-                </nav>
-            </div>
-
-            <!--Menu end-->
-
-            <!--Header Right Wrap-->
-            <div class="col-12 col-md-9 order-md-2 order-lg-3 col-lg-5">
-                <div class="header-right-wrap">
-                    <ul>
-                        {% if request.user.is_authenticated %}
-                        <li><a href="{{ logout_url }}">Đăng Xuất</a></li>
-                        {% else %}
-                        <li><a href="{{ login_url }}">Đăng Nhập</a></li>
-                        <li><a href="{{ register_url }}">Đăng Kí</a></li>
-                        {% endif %}
-
-                        <li class="header-search"><a class="header-search-toggle" href="#"><i class="icofont-search-2" style="vertical-align: middle"></i></a>
-                            <div class="header-search-form">
-                                {% include 'search/snippets/search_form.html' %}
+                        <li class=akea-center-nav-menu-item>
+                            <div class="akea-logo  akea-item-pdlr">
+                                <div class=akea-logo-inner>
+                                    <a id="ct-icon-blog" href="{{ home_url }}"><img src="{% static 'images/blog/defaults/logo-ct.png' %}" alt width=140 height=33 title=logo-2></a>
+                                </div>
                             </div>
                         </li>
-
-                        {% get_current_language as LANGUAGE_CODE %}
-                        {% if LANGUAGE_CODE == 'en' %}
-                        <li>
-                            <form action="{% url 'set_language' %}" method="post">
-                                {% csrf_token %}
-                                <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
-                                <input name="language" type="hidden" value="vi" />
-                                <input type="image" src="{% static "images/language/vi.png" %}" style="vertical-align: middle" alt="vi" onchange="this.form.submit()" />
-                            </form>
-                        </li>
-                        {% elif LANGUAGE_CODE == 'vi' %}
-                        <li>
-                            <form action="{% url 'set_language' %}" method="post">
-                                {% csrf_token %}
-                                <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
-                                <input name="language" type="hidden" value="en" />
-                                <input type="image" src="{% static "images/language/en.png" %}" style="vertical-align: middle" alt="en" onchange="this.form.submit()" />
-                            </form>
-                        </li>
-                        {% endif %}
+                        <li class="menu-item akea-normal-menu"><a href="{{ technology_url }}">Technology</a></li>
+                        <li class="menu-item akea-normal-menu"><a href="{{ entertain_url }}">Code</a></li>
                     </ul>
+                    <div class=akea-navigation-slide-bar id=akea-navigation-slide-bar></div>
+                </div>
+                <div class="akea-main-menu-right-wrap clearfix  akea-item-mglr akea-navigation-top">
+                    <div class="akea-overlay-menu akea-main-menu-right" id=akea-right-menu><a class="akea-overlay-menu-icon akea-right-menu-button akea-top-menu-button akea-mobile-button-hamburger" href=#><span></span></a>
+                        <div class="akea-overlay-menu-content akea-navigation-font">
+                            <div class=akea-overlay-menu-close></div>
+                            <div class=akea-overlay-menu-row>
+                                <div class=akea-overlay-menu-cell>
+                                    <ul id=menu-main-navigation-2 class=menu>
+                                        <li class="menu-item menu-item-home current-menu-item"><a href="{{ home_url }}" aria-current=page>Home</a></li>
+                                        <li class="menu-item menu-item-has-children"><a href=#>Tips</a>
+                                            <ul class=sub-menu>
+                                                <li class="menu-item"><a href="{{ windows_url }}">Windows</a></li>
+                                                <li class="menu-item"><a href="{{ linux_url }}">Linux</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-item"><a href="{{ technology_url }}">Technology</a></li>
+                                        <li class="menu-item"><a href="{{ entertain_url }}">Code</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=akea-main-menu-search id=akea-top-search><i class="fa fa-search"></i></div>
+                    {% include 'search/snippets/search_form.html' %}
                 </div>
             </div>
-            <!--Header Right Wrap-->
-
         </div>
-
-        <!--Mobile Menu start-->
-        <div class="row">
-            <div class="col-12 d-flex d-lg-none">
-                <div class="mobile-menu"></div>
-            </div>
-        </div>
-        <!--Mobile Menu end-->
-
     </div>
-</div>
+</header>

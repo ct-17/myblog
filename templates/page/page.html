@@ -9,69 +9,56 @@
 {% url 'search:query' as search_url %}
 
 {% load staticfiles %}
-<!doctype html>
-<html class="no-js" lang="zxx">
+<!DOCTYPE html>
+<html lang=en-US class=no-js>
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>{% block title %}{% endblock %}</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Place favicon.ico in the root directory -->
-        <link href="{% static "images/ct.png" %}" type="img/x-icon" rel="shortcut icon">
-        <!-- All css files are included here. -->
-        <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
-        <link rel="stylesheet" href="{% static "css/qanto.css" %}">
-        <link rel="stylesheet" href="{% static "css/bauhaus93.css" %}">
-        <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
-        <link rel="stylesheet" href="{% static "css/icofont.min.css" %}">
-        <link rel="stylesheet" href="{% static "css/plugins.css" %}">
-        <link rel="stylesheet" href="{% static "css/helper.css" %}">
-        <link rel="stylesheet" href="{% static "css/style.css" %}">   
-        <!-- Modernizr JS -->
-        <script src="{% static "js/vendor/modernizr-2.8.3.min.js" %}"></script>
-    </head>
+<head>
+    <meta charset=UTF-8>
+    <meta name=viewport content="width=device-width, initial-scale=1">
 
-    <body>
-        
-        <div id="main-wrapper">
-        
-            <!--Header section start-->
-            <header class="header header-static bg-black header-sticky">
-                {% include "page/menu.html" %}
-            </header>
-            <!--Header section end-->
-            
-            <!-- content blog -->
-            {% block content %}{% endblock %}
-            <!-- content blog end -->
-            
-            <!--Projects section start-->
-            {% include "page/start_footer.html" %}
-            <!--Projects section end-->
-            
-            <!--Footer section start-->
-            {% include "page/footer.html" %}
-            <!--Footer section end-->
-            
+
+    <title>Akea &#8211; Minimal Blog HTML Template</title>
+
+
+    <link rel=stylesheet href="{% static 'css/blog/style.css' %}" type=text/css media=all>
+    <link rel=stylesheet href="{% static 'css/blog/page-builder.css' %}" type=text/css media=all>
+    <link rel=stylesheet href="{% static 'css/blog/zilla-likes.css' %}" type=text/css media=all>
+    <link rel=stylesheet href="{% static 'css/blog/style-core.css' %}" type=text/css media=all>
+    <link rel=stylesheet href="{% static 'css/blog/akea-style-custom.css' %}" type=text/css media=all>
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+
+</head>
+
+<body class="home page-template-default page page-id-2039 gdlr-core-body woocommerce-no-js akea-body akea-body-front akea-full  akea-with-sticky-navigation  akea-blockquote-style-1 gdlr-core-link-to-lightbox" data-home-url=index.html>
+    <div class=akea-mobile-header-wrap>
+        <div class="akea-mobile-header akea-header-background akea-style-slide akea-sticky-mobile-navigation " id=akea-mobile-header>
+            {% include 'page/menu_mobile.html' %}
         </div>
+    </div>
+    <div class="akea-body-outer-wrapper ">
+        <div class="akea-body-wrapper clearfix  akea-with-frame">
+            {% include 'page/menu.html' %}
+            
+            {% block content %}{% endblock %}
 
-        <!-- Placed js at the end of the document so the pages load faster -->
+            {% include 'page/footer.html' %}
+        </div>
+    </div>
+    <a href=#akea-top-anchor class="akea-footer-back-to-top-button  akea-with-recent-post-bar " id=akea-footer-back-to-top-button><i class="fa fa-angle-up"></i></a>
 
-        <!-- All jquery file included here -->
-        <script src="{% static "js/vendor/jquery-1.12.4.min.js" %}"></script>
-        <script src="{% static "js/popper.min.js" %}"></script>
-        <script src="{% static "js/bootstrap.min.js" %}"></script>
-        <script src="{% static "js/plugins.js" %}"></script>
-        <script src="{% static "js/main.js" %}"></script>
-        <script>
-            function InputLanguageValue()
-            {
-                var selectedValue = document.getElementById("input_language").value.submit();
-            }
-        </script>
+    <div class="akea-footer-recent-post-button " id="akea-footer-recent-post-button">
+        <i class="icon_plus"></i>
+    </div>
 
-    </body>
+    <script src="{% static "js/blog/jquery.js" %}"></script>
+    <script src="{% static 'js/blog/jquery-migrate.min.js' %}"></script>
+    <script src="{% static 'js/blog/zilla-likes.js' %}"></script>
+    <script src="{% static 'js/blog/script.js' %}"></script>
+    <script src="{% static 'js/blog/page-builder.js' %}"></script>
+    <script src="{% static 'js/blog/effect.min.js' %}"></script>
+    <script src="{% static 'js/blog/script-core.js' %}"></script>
+</body>
 
 </html>

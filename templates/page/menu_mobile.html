@@ -1,0 +1,33 @@
+{% load staticfiles %}
+<div class="akea-mobile-header-container akea-container clearfix">
+    <div class="akea-logo  akea-item-pdlr">
+        <div class=akea-logo-inner>
+            <a class href=index.html><img src="{% static 'images/blog/defaults/logo-ct.png' %}" alt width=140 height=33 title=logo-2></a>
+        </div>
+    </div>
+    <div class=akea-mobile-menu-right>
+        <div class=akea-main-menu-search id=akea-mobile-top-search><i class="fa fa-search"></i></div>
+        {% include 'search/snippets/search_form.html' %}
+
+        <div class="akea-overlay-menu akea-mobile-menu" id=akea-mobile-menu><a class="akea-overlay-menu-icon akea-mobile-menu-button akea-mobile-button-hamburger" href=#><span></span></a>
+            <div class="akea-overlay-menu-content akea-navigation-font">
+                <div class=akea-overlay-menu-close></div>
+                <div class=akea-overlay-menu-row>
+                    <div class=akea-overlay-menu-cell>
+                        <ul id=menu-main-navigation class=menu>
+                            <li class="menu-item menu-item-home current-menu-item"><a href="{{ home_url }}" aria-current=page>Home</a></li>
+                            <li class="menu-item menu-item-has-children"><a href=#>Tips</a>
+                                <ul class=sub-menu>
+                                    <li class="menu-item"><a href="{{ windows_url }}">Windows</a></li>
+                                    <li class="menu-item"><a href="{{ linux_url }}">Linux</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item"><a href="{{ technology_url }}">Technology</a></li>
+                            <li class="menu-item"><a href="{{ entertain_url }}">Code</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

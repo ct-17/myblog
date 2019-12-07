@@ -1,7 +1,21 @@
 {% load staticfiles %}
-<form method='GET' action='{% url "search:query" %}'>
+{% comment %} <form method='GET' action='{% url "search:query" %}'>
     <div class='input-group'>
         <input type="text" placeholder="Tìm kiếm" name='q' aria-label="Search" value='{{ request.GET.q }}'>
         <button type="submit"><i class="icofont-search"></i></button>
     </div>
-</form>
+</form> {% endcomment %}
+
+<div class=akea-top-search-wrap>
+    <div class=akea-top-search-close></div>
+    <div class=akea-top-search-row>
+        <div class=akea-top-search-cell>
+            <form role=search method=get class=search-form action=#>
+                <input type=text class="search-field akea-title-font" placeholder=Search... value name=s>
+                <div class=akea-top-search-submit><i class="fa fa-search"></i></div>
+                <input type=submit class=search-submit value=Search>
+                <div class=akea-top-search-close><i class=icon_close></i></div>
+            </form>
+        </div>
+    </div>
+</div>
