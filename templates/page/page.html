@@ -9,25 +9,26 @@
 {% url 'search:query' as search_url %}
 
 {% load staticfiles %}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang=en-US class=no-js>
 
 <head>
     <meta charset=UTF-8>
     <meta name=viewport content="width=device-width, initial-scale=1">
-
-
-    <title>Akea &#8211; Minimal Blog HTML Template</title>
-
-
+    <title>{% block title %}{% endblock %}</title>
+    
+    
     <link rel=stylesheet href="{% static 'css/blog/style.css' %}" type=text/css media=all>
     <link rel=stylesheet href="{% static 'css/blog/page-builder.css' %}" type=text/css media=all>
     <link rel=stylesheet href="{% static 'css/blog/zilla-likes.css' %}" type=text/css media=all>
     <link rel=stylesheet href="{% static 'css/blog/style-core.css' %}" type=text/css media=all>
     <link rel=stylesheet href="{% static 'css/blog/akea-style-custom.css' %}" type=text/css media=all>
-
+    
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
+    
+    <link rel="shortcut icon" type="image/ico" href="{% static 'images/blog/defaults/logo_website.ico' %}"/>
 
 </head>
 
@@ -41,8 +42,21 @@
         <div class="akea-body-wrapper clearfix  akea-with-frame">
             {% include 'page/menu.html' %}
             
-            {% block content %}{% endblock %}
-
+            <div class=akea-page-wrapper id=akea-page-wrapper>
+                <div class=gdlr-core-page-builder-body>
+                    <div class="gdlr-core-pbf-sidebar-wrapper ">
+                        <div class="gdlr-core-pbf-sidebar-container gdlr-core-line-height-0 clearfix gdlr-core-js gdlr-core-container">
+                            <div class="gdlr-core-pbf-sidebar-content  gdlr-core-column-40 gdlr-core-pbf-sidebar-padding gdlr-core-line-height gdlr-core-column-extend-left" id="div_2207_2">
+                                {% block content %}{% endblock %}
+                            </div>
+                            <div class="gdlr-core-pbf-sidebar-right gdlr-core-column-extend-right  akea-sidebar-area gdlr-core-column-20 gdlr-core-pbf-sidebar-padding  gdlr-core-line-height" data-skin="Blog List" id="div_2207_9">
+                                {% include "blog/top_post.html" %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             {% include 'page/footer.html' %}
         </div>
     </div>

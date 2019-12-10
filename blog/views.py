@@ -84,7 +84,7 @@ def post_model_delete_view(request, id=None):
 def post_model_list_view(request):
     query = request.GET.get("q", None)
     qs = PostModel.objects.all().order_by('-publish_date')
-    paginator = Paginator(qs, 12)
+    paginator = Paginator(qs, 6)
     page = request.GET.get('page')
 
     try:
@@ -188,7 +188,7 @@ def comments(request, id):
 def Home(request):
     query = request.GET.get("q", None)
     qs = PostModel.objects.all().order_by('-publish_date')
-    paginator = Paginator(qs, 12)
+    paginator = Paginator(qs, 6)
     page = request.GET.get('page')
 
     try:
@@ -221,7 +221,7 @@ def Home(request):
 def windows(request):
     query = request.GET.get("q", None)
     qs = PostModel.objects.all().order_by('-publish_date').filter(kind="windows")
-    paginator = Paginator(qs, 12)
+    paginator = Paginator(qs, 6)
     page = request.GET.get('page')
 
     try:
@@ -254,7 +254,7 @@ def windows(request):
 def linux(request):
     query = request.GET.get("q", None)
     qs = PostModel.objects.all().order_by('-publish_date').filter(kind="linux")
-    paginator = Paginator(qs, 12)
+    paginator = Paginator(qs, 6)
     page = request.GET.get('page')
 
     try:
@@ -287,7 +287,7 @@ def linux(request):
 def technology(request):
     query = request.GET.get("q", None)
     qs = PostModel.objects.all().order_by('-publish_date').filter(kind="technology")
-    paginator = Paginator(qs, 12)
+    paginator = Paginator(qs, 6)
     page = request.GET.get('page')
 
     try:
@@ -320,7 +320,7 @@ def technology(request):
 def entertain(request):
     query = request.GET.get("q", None)
     qs = PostModel.objects.all().order_by('-publish_date').filter(kind="entertain")
-    paginator = Paginator(qs, 12)
+    paginator = Paginator(qs, 6)
     page = request.GET.get('page')
 
     try:

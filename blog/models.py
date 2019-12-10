@@ -84,6 +84,7 @@ class PostModel(models.Model):
                             help_text=_('The title must be unique.'))
     slug            = models.SlugField(null=True, blank=True)
     description     = models.CharField(null=True, blank=True, verbose_name=_('Description:'), max_length=1000)
+    img             = models.ImageField(null=True, blank=True, upload_to='uploads/images/%Y/%m/%d/', verbose_name=_('Image:'))
     content         = FroalaField(null=True, blank=True, verbose_name=_('Content:'))
     # content         = models.TextField(null=True, blank=True, verbose_name=_('Content:'))
     kind            = models.CharField(max_length=120, choices=PUBLISH_CHOICES, verbose_name=_('Kind:'), default='entertainment')

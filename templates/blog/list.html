@@ -1,49 +1,50 @@
 {% load staticfiles %}
-    <div class="row row-7">
-        <div class="tab-content">
-            <div id="all" class="tab-pane fade show active">
-                <div class="row row-7">
-                    {% for i in items %}
-                        <div class="col-md-6">
-                            <!--Single Blog Post Start-->
-                            <div class="single-blog-post mb-30">
-                                <div class="blog-img">
-                                    <a href="/{{ i.kind }}/{{ i.slug }}/"><img src="{% static "images/blog/blog-1.jpg" %}" alt=""></a>
-                                </div>
-                                <div class="blog-content">
-                                    <h3><a href="/{{ i.kind }}/{{ i.slug }}/">{{ i.title }}</a></h3>
-                                    <p>Some of hiden secret of the  Elder Scroll is the most popular are ames that your can Latest Mega 2019 games offer you ioous league and also alow you to make smile and enjoy the game maek it easy</p>
-                                    <ul class="meta">
-                                        <li><a href="#">Smith</a></li> 
-                                        <li>{{ i.timestamp | date:"d/m/Y" }}</li>
-                                        <li><a href="#">25 Comments</a></li>
-                                    </ul>
+    
+    <div class=gdlr-core-pbf-element>
+        <div class="gdlr-core-blog-item gdlr-core-item-pdb clearfix  gdlr-core-style-blog-full">
+            <div class="gdlr-core-blog-item-holder gdlr-core-js-2 clearfix" data-layout=fitrows>
+                {% for i in items %}
+                <div class="gdlr-core-item-list gdlr-core-blog-full  gdlr-core-item-mglr gdlr-core-style-left">
+                    <div class="gdlr-core-blog-thumbnail-wrap clearfix">
+                        <div class="gdlr-core-blog-thumbnail gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover">
+                            {% if i.img %}
+                                <a href="/{{ i.kind }}/{{ i.slug }}/"><img src="{{ i.img.url }}" alt width=1000 height=486 title=pexels-photo-871053></a>
+                            {% else %}
+                                <a href="/{{ i.kind }}/{{ i.slug }}/"><img src="{% static 'images/blog/defaults/pexels-photo-1000x486.jpg' %}" alt width=1000 height=486 title=pexels-photo-871053></a>
+                            {% endif %}
+                        </div>
+                        <a href="#" class=zilla-likes id=zilla-likes-6613 title="Like this"><span class=zilla-likes-count>261</span> <span class=zilla-likes-postfix></span></a>
+                    </div>
+                    <div class=gdlr-core-blog-full-content-wrap>
+
+                        <div class="gdlr-core-blog-full-head clearfix">
+                            <div class=gdlr-core-blog-full-head-right>
+                                <h1 class="gdlr-core-blog-title gdlr-core-skin-title" id="h3_2207_3">
+                                    <a href="/{{ i.kind }}/{{ i.slug }}/">{{ i.title }}</a>
+                                </h1>
+                                <div class="gdlr-core-blog-info-wrapper gdlr-core-skin-divider">
+                                    <span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-author">
+                                        <img alt src="{% static 'images/admin/account.svg' %}" class='avatar avatar-50 photo' height=50 width=50>
+                                        <a href="#" title="Author" rel=author>{{ i.author }}</a>
+                                    </span>
+                                    <span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-date">
+                                        <a href="#" title="Date">{{ i.timestamp | date:"d/m/Y" }}</a>
+                                    </span>
+                                    <span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-category">
+                                        <a href="#" title="Tag" rel=tag>{{ i.kind }}</a>
+                                    </span>
                                 </div>
                             </div>
-                            <!--Single Blog Post End-->
                         </div>
-                    {% empty %}
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <h1 class="text-center">Hiện tại chưa có bài viết.</h1>
-                        </div>
-                    {% endfor %}
+                        <div class=gdlr-core-blog-content>{{ i.description }}</div>
+                    </div>
                 </div>
+                {% empty %}
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <h1 class="text-center">Hiện tại chưa có bài viết.</h1>
+                    </div>
+                {% endfor %}
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="blog-pagination text-center">
-                <ul class="page-pagination">
-                    <li><a href="#"><i class="icofont-long-arrow-left"></i></a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">6</a></li>
-                    <li><a href="#"><i class="icofont-long-arrow-right"></i></a></li>
-                </ul>
-            </div>
+            {% include "blog/paginator.html" %}
         </div>
     </div>

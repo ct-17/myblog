@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load i18n %}
 <header class="akea-header-wrap akea-header-style-plain  akea-style-splitted-menu akea-sticky-navigation akea-style-slide" data-navigation-offset=75px>
     <div class=akea-header-background></div>
     <div class="akea-header-container  akea-container">
@@ -6,11 +7,11 @@
             <div class="akea-navigation akea-item-pdlr clearfix ">
                 <div class=akea-main-menu id=akea-main-menu>
                     <ul id=menu-main-navigation-1 class=sf-menu>
-                        <li class="menu-item menu-item-home current-menu-item akea-normal-menu"><a href="{{ home_url }}" alt="Home" class=sf-with-ul-pre>Home</a></li>
-                        <li class="menu-item menu-item-has-children akea-normal-menu"><a href="#" class=sf-with-ul-pre>Tips</a>
+                        <li class="menu-item menu-item-home current-menu-item akea-normal-menu"><a href="{{ home_url }}" alt="Home" class=sf-with-ul-pre>{% trans "Home" %}</a></li>
+                        <li class="menu-item menu-item-has-children akea-normal-menu"><a href="#" class=sf-with-ul-pre>{% trans "Tips" %}</a>
                             <ul class=sub-menu>
-                                <li class="menu-item" data-size=60><a href="{{ windows_url }}">Windows</a></li>
-                                <li class="menu-item" data-size=60><a href="{{ linux_url }}">Linux</a></li>
+                                <li class="menu-item" data-size=60><a href="{{ windows_url }}">{% trans "Windows" %}</a></li>
+                                <li class="menu-item" data-size=60><a href="{{ linux_url }}">{% trans "Linux" %}</a></li>
                             </ul>
                         </li>
                         <li class=akea-center-nav-menu-item>
@@ -20,8 +21,8 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="menu-item akea-normal-menu"><a href="{{ technology_url }}">Technology</a></li>
-                        <li class="menu-item akea-normal-menu"><a href="{{ entertain_url }}">Code</a></li>
+                        <li class="menu-item akea-normal-menu"><a href="{{ technology_url }}">{% trans "Technology" %}</a></li>
+                        <li class="menu-item akea-normal-menu"><a href="{{ entertain_url }}">{% trans "Code" %}</a></li>
                     </ul>
                     <div class=akea-navigation-slide-bar id=akea-navigation-slide-bar></div>
                 </div>
@@ -32,21 +33,46 @@
                             <div class=akea-overlay-menu-row>
                                 <div class=akea-overlay-menu-cell>
                                     <ul id=menu-main-navigation-2 class=menu>
-                                        <li class="menu-item menu-item-home current-menu-item"><a href="{{ home_url }}" aria-current=page>Home</a></li>
-                                        <li class="menu-item menu-item-has-children"><a href=#>Tips</a>
+                                        <li class="menu-item menu-item-home current-menu-item"><a href="{{ home_url }}" aria-current=page>{% trans "Home" %}</a></li>
+                                        <li class="menu-item menu-item-has-children"><a href=#>{% trans "Tips" %}</a>
                                             <ul class=sub-menu>
-                                                <li class="menu-item"><a href="{{ windows_url }}">Windows</a></li>
-                                                <li class="menu-item"><a href="{{ linux_url }}">Linux</a></li>
+                                                <li class="menu-item"><a href="{{ windows_url }}">{% trans "Windows" %}</a></li>
+                                                <li class="menu-item"><a href="{{ linux_url }}">{% trans "Linux" %}</a></li>
                                             </ul>
                                         </li>
-                                        <li class="menu-item"><a href="{{ technology_url }}">Technology</a></li>
-                                        <li class="menu-item"><a href="{{ entertain_url }}">Code</a></li>
+                                        <li class="menu-item"><a href="{{ technology_url }}">{% trans "Technology" %}</a></li>
+                                        <li class="menu-item"><a href="{{ entertain_url }}">{% trans "Code" %}</a></li>
+
+                                        <li class="menu-item menu-item-has-children"><a href=#>{% trans "Languages" %}</a>
+                                            <ul class=sub-menu>
+                                                {% get_current_language as LANGUAGE_CODE %}
+                                                {% if LANGUAGE_CODE == 'en' %}
+                                                <li class="menu-item">
+                                                    <form id="language" action="{% url 'set_language' %}" method="post">
+                                                        {% csrf_token %}
+                                                        <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+                                                        <input name="language" type="hidden" value="vi" />
+                                                        <a href="javascript:{}" onclick="document.getElementById('language').submit();">Vietnamese</a>
+                                                    </form>
+                                                </li>
+                                                {% elif LANGUAGE_CODE == 'vi' %}
+                                                <li class="menu-item">
+                                                    <form id="language" action="{% url 'set_language' %}" method="post">
+                                                        {% csrf_token %}
+                                                        <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+                                                        <input name="language" type="hidden" value="en" />
+                                                        <a href="javascript:{}" onclick="document.getElementById('language').submit();">English</a>
+                                                    </form>
+                                                </li>
+                                                {% endif %}
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class=akea-main-menu-search id=akea-top-search><i class="fa fa-search"></i></div>
+                    <div class="akea-main-menu-search" id="akea-top-search"><i class="fa fa-search"></i></div>
                     {% include 'search/snippets/search_form.html' %}
                 </div>
             </div>
