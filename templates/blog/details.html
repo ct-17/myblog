@@ -8,7 +8,6 @@
             <div class="gdlr-core-blog-item-holder gdlr-core-js-2 clearfix" data-layout=fitrows>
                 <div class="gdlr-core-item-list gdlr-core-blog-full  gdlr-core-item-mglr gdlr-core-style-left">
                     <div class=gdlr-core-blog-full-content-wrap>
-
                         <div class="gdlr-core-blog-full-head clearfix">
                             <div class=gdlr-core-blog-full-head-right>
                                 <h1 class="gdlr-core-blog-title gdlr-core-skin-title" id="h3_2207_3">
@@ -17,18 +16,21 @@
                                 <div class="gdlr-core-blog-info-wrapper gdlr-core-skin-divider">
                                     <span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-author">
                                         <img alt src="{% static 'images/admin/account.svg' %}" class='avatar avatar-50 photo' height=50 width=50>
-                                        <a href="#" title="Author" rel=author>{{ object.author }}</a>
+                                        <a href="" title="Author" rel=author>{{ object.author }}</a>
                                     </span>
                                     <span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-date">
-                                        <a href="#" title="Date">{{ object.timestamp | date:"d/m/Y" }}</a>
+                                        <a href="" title="Date">{{ object.timestamp | date:"d/m/Y" }}</a>
                                     </span>
                                     <span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-category">
-                                        <a href="#" title="Tag" rel=tag>{{ object.kind }}</a>
+                                        <a href="" title="Tag" rel=tag>{{ object.kind }}</a>
+                                    </span>
+                                    <span class=" gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-like">
+                                        <a href="{{ object.get_like_url }}" id="ct-button-like"><i class="fa fa-heart"> {{ object.like.count }} | Like</i></a>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <div class=gdlr-core-blog-content>{{ object.content | safe }}</div>
+                        <div class="gdlr-core-blog-content">{{ object.content | safe }}</div>
                     </div>
                 </div>
             </div>

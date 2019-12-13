@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.views.generic.base import RedirectView
 
 from .forms import CommentForm, PostModelForm
 from .models import Comment, PostModel
@@ -354,3 +355,26 @@ def test_view(request):
     template = "admin/accounts/accounts.html"
     context = {}
     return render(request, template, context)
+
+class PostLike(RedirectView):
+    permanent = False
+    query_string = True
+    pattern_name = 'like'
+    qs = PostModel.objects.all()
+    def get_redirect_url(self, *args, **kwargs):
+        obj = get_object_or_404(PostModel, slug=kwargs['slug'])
+        # import pdb; pdb.set_trace()
+        url_ = obj.get_absolute_url()
+        user = self.request.user
+        # if user.is_authenticated or user.is_admin or user.is_staff:
+        #     if user.email in obj.like.all()[0].email:
+        #         obj.like.remove(user)
+        #     else:
+        #         obj.like.add(user)
+        if obj.like.filter(id=user.id).exists():
+            obj.like.remove(self.request.user)
+        else:
+            obj.like.add(self.request.user)
+        # return super(PostLike, self).get_redirect_url(*args, **kwargs)
+        print("CT: ", obj.like.all())
+        return url_

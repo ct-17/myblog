@@ -10,6 +10,8 @@ from django.utils.text import slugify
 from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
 from froala_editor.fields import FroalaField
+from django.urls import reverse
+from accounts.models import User
 
 PUBLISH_CHOICES = [
         ('windows', _('windows')),
@@ -82,7 +84,7 @@ class PostModel(models.Model):
                                 "blank": _("This field is required, please try again.")
                             },
                             help_text=_('The title must be unique.'))
-    slug            = models.SlugField(null=True, blank=True)
+    slug            = models.SlugField(null=True, blank=True, max_length=300)
     description     = models.CharField(null=True, blank=True, verbose_name=_('Description:'), max_length=1000)
     img             = models.ImageField(null=True, blank=True, upload_to='uploads/images/%Y/%m/%d/', verbose_name=_('Image:'))
     content         = FroalaField(null=True, blank=True, verbose_name=_('Content:'))
@@ -93,7 +95,7 @@ class PostModel(models.Model):
     author          = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete= models.CASCADE, verbose_name=_('Author:'), related_name='author_blog1')
     updated         = models.DateTimeField(auto_now=True, editable=False)
     timestamp       = models.DateTimeField(auto_now_add=True, editable=False)
-    like            = models.IntegerField(default=0, verbose_name=_("Like:"), editable=False)
+    like            = models.ManyToManyField(User, blank=True, related_name='post_likes')
 
     objects = PostModelManager()
     other = PostModelManager()
@@ -110,6 +112,12 @@ class PostModel(models.Model):
 
     def __str__(self): #python 3
         return smart_text(self.title)
+    
+    def get_absolute_url(self):
+        return reverse("blog:detail", kwargs={"kind": self.kind, "slug": self.slug})
+
+    def get_like_url(self):
+        return reverse("blog:like", kwargs={"kind": self.kind, "slug": self.slug})
 
 def blog_post_model_pre_save_receiver(sender, instance, *args, **kwargs):
     # print("trước khi lưu")

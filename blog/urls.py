@@ -13,6 +13,7 @@ from .views import (
     linux,
     technology,
     entertain,
+    PostLike,
     )
 
 urlpatterns = [
@@ -23,6 +24,7 @@ urlpatterns = [
     path('entertain/', entertain, name='entertain'),
     path('create/', post_model_create_view, name='create'),
     path('<str:kind>/<slug:slug>/', BlogDetailSlugView.as_view(), name='detail'),
+    path('<str:kind>/<slug:slug>/like/', PostLike.as_view(), name='like'),
     re_path(r'^(?P<id>\d+)/delete/$', post_model_delete_view, name='delete'),
     re_path(r'^(?P<id>\d+)/edit/$', post_model_update_view, name='update'),
 ]
