@@ -8,7 +8,7 @@ from blog_ct.mixins import NextUrlMixin, RequestFormAttachMixin
 class RegisterView(CreateView):
     form_class = RegisterForm
     template_name = 'accounts/register.html'
-    success_url = _('/login/')
+    success_url = _('/accounts/login/')
 
 class LoginView(NextUrlMixin, RequestFormAttachMixin, FormView):
     form_class = LoginForm

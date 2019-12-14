@@ -1,32 +1,33 @@
-{% load static %}
+{% load staticfiles %}
+{% load i18n %}
+
 <div class="gdlr-core-sidebar-item gdlr-core-item-pdlr">
     <div id=gdlr-core-recent-post-widget-3 class="widget widget_gdlr-core-recent-post-widget akea-widget">
         <h3 class="akea-widget-title"><span class=akea-widget-head-text>Top Post</span><span class=akea-widget-head-divider></span></h3><span class=clear></span>
         <div class="gdlr-core-recent-post-widget-wrap gdlr-core-style-full">
+            {% for i in items %}
             <div class="gdlr-core-recent-post-widget clearfix">
                 <div class="gdlr-core-recent-post-widget-thumbnail gdlr-core-media-image">
-                    <a class="gdlr-core-lightgallery gdlr-core-js " href=upload/post-vr.jpg> <img src="{% static 'images/blog/defaults/pexels-photo-1000x486.jpg' %}" alt width=1000 height=486 title=post-vr></a><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-category"><a href=# rel=tag>Trending</a></span></div>
+                    {% if i.img %}
+                        <a class="gdlr-core-lightgallery gdlr-core-js " href="/{{ i.kind }}/{{ i.slug }}/">
+                            <img src="{{ i.img.url }}" alt width=1000 height=486 title=post-vr>
+                        </a><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-category"><a href="#" rel=tag>Trending</a></span>
+                    {% else %}
+                        <a class="gdlr-core-lightgallery gdlr-core-js " href="/{{ i.kind }}/{{ i.slug }}/">
+                            <img src="{% static 'images/blog/defaults/pexels-photo-1000x486.jpg' %}" alt width=1000 height=486 title=post-vr>
+                        </a><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-category"><a href="#" rel=tag>Trending</a></span>
+                    {% endif %}
+                </div>
                 <div class=gdlr-core-recent-post-widget-content>
-                    <div class="gdlr-core-recent-post-widget-title gdlr-core-title-font"><a href=#>Check Out The Most Awesome VR Headset in 2020</a></div>
-                    <div class=gdlr-core-recent-post-widget-info><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-author"><img alt src='upload/avatar.jpeg' class='avatar avatar-50 photo' height=50 width=50><a href=# title="Posts by Jane Smith" rel=author>Jane Smith</a></span><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-date"><a href=#>November 7, 2019</a></span></div>
+                    <div class="gdlr-core-recent-post-widget-title gdlr-core-title-font">
+                        <a href="/{{ i.kind }}/{{ i.slug }}/">{{ i.title }}</a>
+                    </div>
+                    <div class=gdlr-core-recent-post-widget-info><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-author"><img alt="Author" src="{% static 'images/admin/account.svg' %}" class='avatar avatar-50 photo' height=50 width=50><a href="#" title="Author" rel=author>{{ i.author }}</a></span><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-date"><a href="#" title="Date">{{ i.timestamp | date:"d/m/Y" }}</a></span></div>
                 </div>
             </div>
-            <div class="gdlr-core-recent-post-widget clearfix">
-                <div class="gdlr-core-recent-post-widget-thumbnail gdlr-core-media-image">
-                    <a class="gdlr-core-lightgallery gdlr-core-js " href=upload/yiran-ding-624696-unsplash.jpg> <img src="{% static 'images/blog/defaults/pexels-photo-1000x486.jpg' %}" alt width=1000 height=486 title=yiran-ding-624696-unsplash></a><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-category"><a href=# rel=tag>Trending</a></span></div>
-                <div class=gdlr-core-recent-post-widget-content>
-                    <div class="gdlr-core-recent-post-widget-title gdlr-core-title-font"><a href=#>Or It&#8217;s Now The End of Smartphones?</a></div>
-                    <div class=gdlr-core-recent-post-widget-info><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-author"><img alt src='upload/avatar.jpeg' class='avatar avatar-50 photo' height=50 width=50><a href=# title="Posts by Janet Jones" rel=author>Janet Jones</a></span><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-date"><a href=#>November 7, 2019</a></span></div>
-                </div>
-            </div>
-            <div class="gdlr-core-recent-post-widget clearfix">
-                <div class="gdlr-core-recent-post-widget-thumbnail gdlr-core-media-image">
-                    <a class="gdlr-core-lightgallery gdlr-core-js " href=upload/christopher-burns-271403-unsplash.jpg> <img src="{% static 'images/blog/defaults/pexels-photo-1000x486.jpg' %}" alt width=1000 height=486 title=christopher-burns-271403-unsplash></a><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-category"><a href=# rel=tag>Trending</a></span></div>
-                <div class=gdlr-core-recent-post-widget-content>
-                    <div class="gdlr-core-recent-post-widget-title gdlr-core-title-font"><a href=#>XE Entertainment Brings You New Experience of Fun</a></div>
-                    <div class=gdlr-core-recent-post-widget-info><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-author"><img alt src='upload/avatar.jpeg' class='avatar avatar-50 photo' height=50 width=50><a href=# title="Posts by Kally Gordon" rel=author>Kally Gordon</a></span><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-date"><a href=#>November 7, 2019</a></span></div>
-                </div>
-            </div>
+            {% empty %}
+             <p>{% trans "Not post." %}</p>
+            {% endfor %}
         </div>
     </div>
 </div>

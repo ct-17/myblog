@@ -1,56 +1,36 @@
-{% extends "page/page.html" %}
-{% block title %}Login | CT{% endblock title %}
 {% load staticfiles %}
-{% block content %}
-    
-    <!--Login Section Start-->
-    <div class="login-section section pt-95 pt-lg-75 pt-md-65 pt-sm-55 pt-xs-45">
-        <div class="container">
-            <div class="row">
-
-                <!-- Login -->
-                <div class="col-md-6 col-12 d-flex">
-                    <div class="gilbard-login">
-
-                        <h3>We will need for your registration</h3>
-                        <p>Gilbard provide how all this mistaken idea of denouncing pleasure and sing pain born an will give you a complete account of the system, and expound</p>
-
-                        <!-- Login Form -->
-                        <form method="POST" action='.' enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {{ form }}
-                            <input type="hidden" name="next" value="/" />
-                            <br/>
-                            <center><input class="btn btn-primary btn-lg btn-block" type="submit" value="Đăng kí"></center>
-                        </form>
-                        
-                        <h4>Have an account? please click <a href="{% static "accounts/login.html" %}">Login</a></h4>
-                    </div>
-                </div>
-
-                <div class="col-md-1 col-12 d-flex">
-
-                    <div class="login-reg-vertical-boder"></div>
-
-                </div>
-
-                <!-- Login With Social -->
-                <div class="col-md-5 col-12 d-flex">
-
-                    <div class="gilbard-social-login">
-                        <h3>Also you can login with...</h3>
-
-                        <a href="#" class="facebook-login">Login with <i class="fa fa-facebook"></i></a>
-                        <a href="#" class="twitter-login">Login with <i class="fa fa-twitter"></i></a>
-                        <a href="#" class="google-plus-login">Login with <i class="fa fa-google-plus"></i></a>
-
-                    </div>
-
-                </div>
-
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blog ct | {% trans "Registration" %}</title>
+        <link rel="shortcut icon" type="image/ico" href="{% static 'images/blog/defaults/logo_website.ico' %}"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
+        <link rel=stylesheet href="{% static 'css/accounts/login.css' %}" type=text/css media=all>
+        <script type="text/javascript" src="{% static 'js/accounts/login.js' %}"></script>
+    </head>
+    <body>
+        <form method="POST" action='.' enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="group">
+                {{ form.fullname }}<span class="highlight"></span><span class="bar"></span>
+                <label>{% trans "Full Name" %}</label>
             </div>
-        </div>
-    </div>
-    <!--Login Section End-->
-
-{% endblock content %} 
+            <div class="group">
+                {{ form.email }}<span class="highlight"></span><span class="bar"></span>
+                <label>Email</label>
+            </div>
+            <div class="group">
+                {{ form.password1 }}<span class="highlight"></span><span class="bar"></span>
+                <label>{% trans "Password" %}</label>
+            </div>
+            <div class="group">
+                {{ form.password2 }}<span class="highlight"></span><span class="bar"></span>
+                <label>{% trans "Password (again):" %}</label>
+            </div>
+            <button type="submit" class="button buttonBlue">{% trans "Registration" %}
+                <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+            </button>
+        </form>
+    </body>
+</html>

@@ -7491,39 +7491,30 @@ html.mm-opening.akea-mmenu-right .akea-mobile-header {
 	margin-top: -35px;
 }
 
-#ct-button-like {
-	color: #007bff;
-    background-color: transparent;
-    background-image: none;
-    border-color: #007bff;
+.gdlr-core-blog-info-like .ct-button {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 0px 4px;
+	text-align: center;
+	text-decoration: none;
 	display: inline-block;
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border: 1px solid;
-    padding: .1rem .5rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: .25rem;
-	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-	font-family: inherit;
-}
-
-#ct-button-like:hover {
+	font-size: 10px;
+	margin: 4px 2px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+	cursor: pointer;
+	border-radius: 4px;
+	font-family: auto;
+  }
+  
+  .gdlr-core-blog-info-like .ct-button-like {
+	background-color: white; 
+	color: #008CBA; 
+	border: 1px solid #008CBA;
+  }
+  
+  .gdlr-core-blog-info-like .ct-button-like:hover {
+	background-color: #008CBA;
 	color: white;
-    background-color: #0080ff;
-    border-color: #007bff;
-}
-
-#ct-button-like i {
-	color: #ec6a2a;
-}
-
-#ct-button-like i:hover {
-	color: white;
-}
+  }

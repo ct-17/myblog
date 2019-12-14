@@ -452,7 +452,7 @@ ul.gdlr-core-custom-menu-widget.gdlr-core-menu-style-list li a{ border-color: #e
 .gdlr-core-blog-title a:hover, .akea-body .akea-single-article-title a:hover{ color: #ec6a2a; } 
 .gdlr-core-sticky-banner, .akea-sticky-banner, body .zilla-likes, body .zilla-likes:hover, body .zilla-likes.active{ color: #444444; } 
 .gdlr-core-sticky-banner, .akea-sticky-banner, body .zilla-likes, body .zilla-likes:hover, body .zilla-likes.active{ background-color: #ffffff; } 
-.akea-single-article .akea-blog-info-wrapper, .akea-single-article .akea-blog-info-wrapper a, .akea-single-article .akea-blog-info-wrapper a:hover, .akea-single-article .akea-blog-info-wrapper i, .gdlr-core-blog-info-wrapper, .gdlr-core-blog-info-wrapper a, .gdlr-core-blog-info-wrapper a:hover, .gdlr-core-blog-info-wrapper i, .gdlr-core-blog-grid .gdlr-core-blog-info-date a{ color: #959595; }.gdlr-core-blog-full .gdlr-core-blog-full-comment i, .gdlr-core-blog-full .gdlr-core-blog-full-comment a{ color: #959595; } 
+.gdlr-core-blog-full .gdlr-core-blog-full-comment i, .gdlr-core-blog-full .gdlr-core-blog-full-comment a{ color: #959595; } 
 .gdlr-core-blog-info-wrapper .gdlr-core-blog-info:after, .akea-single-article .akea-blog-info-wrapper .akea-blog-info:after{ border-color: #ec6a2a; } 
 .gdlr-core-blog-date-wrapper .gdlr-core-blog-date-day, .akea-single-article .akea-single-article-date-day{ color: #353535; } 
 .gdlr-core-blog-date-wrapper .gdlr-core-blog-date-month, .akea-single-article .akea-single-article-date-month{ color: #8a8a8a; } 

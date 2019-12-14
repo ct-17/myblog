@@ -25,7 +25,11 @@
                                         <a href="" title="Tag" rel=tag>{{ object.kind }}</a>
                                     </span>
                                     <span class=" gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-like">
-                                        <a href="{{ object.get_like_url }}" id="ct-button-like"><i class="fa fa-heart"> {{ object.like.count }} | Like</i></a>
+                                        {% if user.is_authenticated %}
+                                            <a href="{{ object.get_like_url }}" class="ct-button ct-button-like"><i class="fa fa-heart"></i> {{ object.like.count }} | Like</a>
+                                        {% else %}
+                                            <a href="" class="ct-button ct-button-like"><i class="fa fa-heart"></i> {{ object.like.count }} | Like</a>
+                                        {% endif %}
                                     </span>
                                 </div>
                             </div>

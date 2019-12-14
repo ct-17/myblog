@@ -351,9 +351,37 @@ def entertain(request):
     template = "blog/entertain.html"
     return render(request, template, context)
 
-def test_view(request):
-    template = "admin/accounts/accounts.html"
-    context = {}
+def TopPost(request):
+    query = request.GET.get("q", None)
+    qs = PostModel.objects.all().order_by('-like.count')
+    paginator = Paginator(qs, 3)
+    page = request.GET.get('page')
+
+    try:
+        items = paginator.page(page)
+    except PageNotAnInteger:
+        items = paginator.page(1)
+    except EmptyPage:
+        items = paginator.page(paginator.num_pages)
+
+    index = items.number - 1
+    max_index = len(paginator.page_range)
+    start_index = index - 5 if index >= 5 else 0
+    end_index = index + 5 if index <= max_index - 5 else max_index
+    page_range = paginator.page_range[start_index:end_index]
+
+    if query is not None:
+        qs = qs.filter(
+                Q(title__icontains=query) |
+                Q(content__icontains=query) |
+                Q(slug__icontains=query)
+                )
+    context = {
+        "object_list": qs,
+        "items": items,
+        "page_range": page_range,
+    }
+    template = "blog/top_post.html"
     return render(request, template, context)
 
 class PostLike(RedirectView):
@@ -363,18 +391,10 @@ class PostLike(RedirectView):
     qs = PostModel.objects.all()
     def get_redirect_url(self, *args, **kwargs):
         obj = get_object_or_404(PostModel, slug=kwargs['slug'])
-        # import pdb; pdb.set_trace()
         url_ = obj.get_absolute_url()
         user = self.request.user
-        # if user.is_authenticated or user.is_admin or user.is_staff:
-        #     if user.email in obj.like.all()[0].email:
-        #         obj.like.remove(user)
-        #     else:
-        #         obj.like.add(user)
         if obj.like.filter(id=user.id).exists():
             obj.like.remove(self.request.user)
         else:
             obj.like.add(self.request.user)
-        # return super(PostLike, self).get_redirect_url(*args, **kwargs)
-        print("CT: ", obj.like.all())
         return url_

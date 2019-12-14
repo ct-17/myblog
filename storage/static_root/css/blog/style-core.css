@@ -7490,3 +7490,31 @@ html.mm-opening.akea-mmenu-right .akea-mobile-header {
 #ct-icon-blog img {
 	margin-top: -35px;
 }
+
+.gdlr-core-blog-info-like .ct-button {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 0px 4px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 10px;
+	margin: 4px 2px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+	cursor: pointer;
+	border-radius: 4px;
+	font-family: auto;
+  }
+  
+  .gdlr-core-blog-info-like .ct-button-like {
+	background-color: white; 
+	color: #008CBA; 
+	border: 1px solid #008CBA;
+  }
+  
+  .gdlr-core-blog-info-like .ct-button-like:hover {
+	background-color: #008CBA;
+	color: white;
+  }
