@@ -11,6 +11,8 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.base import RedirectView
+from django.db.models import Count
+from django.views.generic import TemplateView
 
 from .forms import CommentForm, PostModelForm
 from .models import Comment, PostModel
@@ -64,9 +66,10 @@ class BlogDetailSlugView(DetailView):
 
     template_name = "blog/details.html"
     queryset = PostModel.objects.all()
-
+    
     def get_context_data(self, **kwargs):
         context = super(BlogDetailSlugView, self).get_context_data(**kwargs)
+        context['top_list'] = PostModel.objects.all().annotate(total_like = Count('like')).order_by('-total_like')[:3]
         return context
 
 def post_model_delete_view(request, id=None):
@@ -189,6 +192,7 @@ def comments(request, id):
 def Home(request):
     query = request.GET.get("q", None)
     qs = PostModel.objects.all().order_by('-publish_date')
+    top_list = PostModel.objects.all().annotate(total_like = Count('like')).order_by('-total_like')[:3]
     paginator = Paginator(qs, 6)
     page = request.GET.get('page')
 
@@ -213,6 +217,7 @@ def Home(request):
                 )
     context = {
         "object_list": qs,
+        "top_list": top_list,
         "items": items,
         "page_range": page_range,
     }
@@ -349,39 +354,6 @@ def entertain(request):
         "page_range": page_range,
     }
     template = "blog/entertain.html"
-    return render(request, template, context)
-
-def TopPost(request):
-    query = request.GET.get("q", None)
-    qs = PostModel.objects.all().order_by('-like.count')
-    paginator = Paginator(qs, 3)
-    page = request.GET.get('page')
-
-    try:
-        items = paginator.page(page)
-    except PageNotAnInteger:
-        items = paginator.page(1)
-    except EmptyPage:
-        items = paginator.page(paginator.num_pages)
-
-    index = items.number - 1
-    max_index = len(paginator.page_range)
-    start_index = index - 5 if index >= 5 else 0
-    end_index = index + 5 if index <= max_index - 5 else max_index
-    page_range = paginator.page_range[start_index:end_index]
-
-    if query is not None:
-        qs = qs.filter(
-                Q(title__icontains=query) |
-                Q(content__icontains=query) |
-                Q(slug__icontains=query)
-                )
-    context = {
-        "object_list": qs,
-        "items": items,
-        "page_range": page_range,
-    }
-    template = "blog/top_post.html"
     return render(request, template, context)
 
 class PostLike(RedirectView):

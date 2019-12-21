@@ -27,4 +27,5 @@ urlpatterns = [
     path('<str:kind>/<slug:slug>/like/', PostLike.as_view(), name='like'),
     re_path(r'^(?P<id>\d+)/delete/$', post_model_delete_view, name='delete'),
     re_path(r'^(?P<id>\d+)/edit/$', post_model_update_view, name='update'),
+    # path('toppost/', TopPost, name='top_list_post'),
 ]

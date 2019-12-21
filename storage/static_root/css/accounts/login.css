@@ -206,3 +206,9 @@ input:focus ~ .highlight {
     opacity: 0;
   }
 }
+
+#registration {
+  float: right;
+  font-family: inherit;
+  font-size: 10px;
+}

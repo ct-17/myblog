@@ -5,24 +5,24 @@
     <div id=gdlr-core-recent-post-widget-3 class="widget widget_gdlr-core-recent-post-widget akea-widget">
         <h3 class="akea-widget-title"><span class=akea-widget-head-text>Top Post</span><span class=akea-widget-head-divider></span></h3><span class=clear></span>
         <div class="gdlr-core-recent-post-widget-wrap gdlr-core-style-full">
-            {% for i in items %}
+            {% for top in top_list %}
             <div class="gdlr-core-recent-post-widget clearfix">
                 <div class="gdlr-core-recent-post-widget-thumbnail gdlr-core-media-image">
-                    {% if i.img %}
-                        <a class="gdlr-core-lightgallery gdlr-core-js " href="/{{ i.kind }}/{{ i.slug }}/">
-                            <img src="{{ i.img.url }}" alt width=1000 height=486 title=post-vr>
+                    {% if top.img %}
+                        <a class="gdlr-core-lightgallery gdlr-core-js " href="/{{ top.kind }}/{{ top.slug }}/">
+                            <img src="{{ top.img.url }}" alt width=1000 height=486 title=post-vr>
                         </a><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-category"><a href="#" rel=tag>Trending</a></span>
                     {% else %}
-                        <a class="gdlr-core-lightgallery gdlr-core-js " href="/{{ i.kind }}/{{ i.slug }}/">
+                        <a class="gdlr-core-lightgallery gdlr-core-js " href="/{{ top.kind }}/{{ top.slug }}/">
                             <img src="{% static 'images/blog/defaults/pexels-photo-1000x486.jpg' %}" alt width=1000 height=486 title=post-vr>
                         </a><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-category"><a href="#" rel=tag>Trending</a></span>
                     {% endif %}
                 </div>
                 <div class=gdlr-core-recent-post-widget-content>
                     <div class="gdlr-core-recent-post-widget-title gdlr-core-title-font">
-                        <a href="/{{ i.kind }}/{{ i.slug }}/">{{ i.title }}</a>
+                        <a href="/{{ top.kind }}/{{ top.slug }}/">{{ top.title }}</a>
                     </div>
-                    <div class=gdlr-core-recent-post-widget-info><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-author"><img alt="Author" src="{% static 'images/admin/account.svg' %}" class='avatar avatar-50 photo' height=50 width=50><a href="#" title="Author" rel=author>{{ i.author }}</a></span><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-date"><a href="#" title="Date">{{ i.timestamp | date:"d/m/Y" }}</a></span></div>
+                    <div class=gdlr-core-recent-post-widget-info><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-author"><img alt="Author" src="{% static 'images/admin/account.svg' %}" class='avatar avatar-50 photo' height=50 width=50><a href="#" title="Author" rel=author>{{ top.author }}</a></span><span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-date"><a href="#" title="Date">{{ top.timestamp | date:"d/m/Y" }}</a></span></div>
                 </div>
             </div>
             {% empty %}
