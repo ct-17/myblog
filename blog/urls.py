@@ -14,6 +14,7 @@ from .views import (
     technology,
     entertain,
     PostLike,
+    PostLikeAPI,
     )
 
 urlpatterns = [
@@ -25,7 +26,7 @@ urlpatterns = [
     path('create/', post_model_create_view, name='create'),
     path('<str:kind>/<slug:slug>/', BlogDetailSlugView.as_view(), name='detail'),
     path('<str:kind>/<slug:slug>/like/', PostLike.as_view(), name='like'),
+    path('<str:kind>/<slug:slug>/like-api/', PostLikeAPI.as_view(), name='like-api'),
     re_path(r'^(?P<id>\d+)/delete/$', post_model_delete_view, name='delete'),
     re_path(r'^(?P<id>\d+)/edit/$', post_model_update_view, name='update'),
-    # path('toppost/', TopPost, name='top_list_post'),
 ]

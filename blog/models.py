@@ -119,8 +119,10 @@ class PostModel(models.Model):
     def get_like_url(self):
         return reverse("blog:like", kwargs={"kind": self.kind, "slug": self.slug})
 
+    def get_api_like_url(self):
+        return reverse("blog:like-api", kwargs={"kind": self.kind, "slug": self.slug})
+
 def blog_post_model_pre_save_receiver(sender, instance, *args, **kwargs):
-    # print("trước khi lưu")
     if not instance.slug and instance.title:
         instance.slug = slugify(instance.title) 
 

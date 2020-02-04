@@ -16,20 +16,22 @@
                                 <div class="gdlr-core-blog-info-wrapper gdlr-core-skin-divider">
                                     <span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-author">
                                         <img alt src="{% static 'images/admin/account.svg' %}" class='avatar avatar-50 photo' height=50 width=50>
-                                        <a href="" title="Author" rel=author>{{ object.author }}</a>
+                                        <a href="#" title="Author" rel=author>{{ object.author }}</a>
                                     </span>
                                     <span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-date">
-                                        <a href="" title="Date">{{ object.timestamp | date:"d/m/Y" }}</a>
+                                        <a href="#" title="Date">{{ object.timestamp | date:"d/m/Y" }}</a>
                                     </span>
                                     <span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-category">
-                                        <a href="" title="Tag" rel=tag>{{ object.kind }}</a>
+                                        <a href="#" title="Tag" rel=tag>{{ object.kind }}</a>
                                     </span>
                                     <span class=" gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-like">
-                                        {% if user.is_authenticated %}
+                                        <!-- {% if user.is_authenticated %}
                                             <a href="{{ object.get_like_url }}" class="ct-button ct-button-like"><i class="fa fa-heart"></i> {{ object.like.count }} | Like</a>
                                         {% else %}
-                                            <a href="" class="ct-button ct-button-like"><i class="fa fa-heart"></i> {{ object.like.count }} | Like</a>
-                                        {% endif %}
+                                            <a href="#" class="ct-button ct-button-like"><i class="fa fa-heart"></i> {{ object.like.count }} | Like</a>
+                                        {% endif %} -->
+                                        <p><a class='like-btn' data-href='{{ object.get_api_like_url }}' data-likes='{{ object.like.count }}' href='{{ object.get_like_url }}'>{{ object.like.count }} Like</a></p>
+                                        {% comment %} <p><div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div> {% endcomment %}
                                     </span>
                                 </div>
                             </div>
@@ -41,3 +43,44 @@
         </div>
     </div>
 {% endblock content %}
+
+{% block javascript %}
+    <script>
+        $(document).ready(function(){
+            function updateText(btn, newCount, verb){
+            btn.text(newCount + " " + verb)
+        }
+
+        $(".like-btn").click(function(e){
+            e.preventDefault()
+            var this_ = $(this)
+            var likeUrl = this_.attr("data-href")
+            var likeCount = parseInt(this_.attr("data-likes")) | 0
+            
+            if (likeUrl){
+                $.ajax({
+                    url: likeUrl,
+                    method: "GET",
+                    data: {},
+                    success: function(data){
+                    console.log(data)
+                    var newLikes;
+                    if (data.liked){
+                        likeCount = likeCount + 1
+                        updateText(this_, likeCount, "Unlike")
+                    } else {
+                        likeCount = likeCount - 1
+                        updateText(this_, likeCount, "Like")
+                    }
+
+                    }, error: function(error){
+                    console.log(error)
+                    console.log("error")
+                    }
+                })
+            }
+        
+        })
+    })
+    </script>
+{% endblock %}

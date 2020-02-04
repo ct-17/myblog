@@ -17,6 +17,11 @@ from django.views.generic import TemplateView
 from .forms import CommentForm, PostModelForm
 from .models import Comment, PostModel
 
+# Django Rest API
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
+
 @login_required
 def post_model_create_view(request):
     ImageFormSet = formset_factory(Images, form=ImageForm)
@@ -370,3 +375,27 @@ class PostLike(RedirectView):
         else:
             obj.like.add(self.request.user)
         return url_
+
+class PostLikeAPI(APIView):
+    authentication_classes = (authentication.SessionAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, *args, **kwargs):
+        obj = get_object_or_404(PostModel, slug=kwargs['slug'])
+        url_ = obj.get_absolute_url()
+        user = self.request.user
+        updated = False
+        liked = False
+        if user.is_authenticated:
+            if user in obj.like.all():
+                liked = False
+                obj.like.remove(user)
+            else:
+                liked = True
+                obj.like.add(user)
+            updated = True
+        data = {
+            "updated": updated,
+            "liked":liked
+        }
+        return Response(data)

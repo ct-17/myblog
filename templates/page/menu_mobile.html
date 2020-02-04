@@ -30,7 +30,7 @@
                                     {% get_current_language as LANGUAGE_CODE %}
                                     {% if LANGUAGE_CODE == 'en' %}
                                     <li class="menu-item">
-                                        <form id="language" action="{% url 'set_language' %}" method="post">
+                                        <form class="language" action="{% url 'set_language' %}" method="post">
                                             {% csrf_token %}
                                             <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
                                             <input name="language" type="hidden" value="vi" />
@@ -39,7 +39,7 @@
                                     </li>
                                     {% elif LANGUAGE_CODE == 'vi' %}
                                     <li class="menu-item">
-                                        <form id="language" action="{% url 'set_language' %}" method="post">
+                                        <form class="language" action="{% url 'set_language' %}" method="post">
                                             {% csrf_token %}
                                             <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
                                             <input name="language" type="hidden" value="en" />
