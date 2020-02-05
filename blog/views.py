@@ -386,6 +386,7 @@ class PostLikeAPI(APIView):
         user = self.request.user
         updated = False
         liked = False
+        total = obj.like.count()
         if user.is_authenticated:
             if user in obj.like.all():
                 liked = False
@@ -396,6 +397,7 @@ class PostLikeAPI(APIView):
             updated = True
         data = {
             "updated": updated,
-            "liked":liked
+            "liked":liked,
+            "total":total
         }
         return Response(data)
