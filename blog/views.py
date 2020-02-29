@@ -232,6 +232,7 @@ def Home(request):
 def windows(request):
     query = request.GET.get("q", None)
     qs = PostModel.objects.all().order_by('-publish_date').filter(kind="windows")
+    top_list = PostModel.objects.all().annotate(total_like = Count('like')).order_by('-total_like')[:3]
     paginator = Paginator(qs, 6)
     page = request.GET.get('page')
 
@@ -256,6 +257,7 @@ def windows(request):
                 )
     context = {
         "object_list": qs,
+        "top_list": top_list,
         "items": items,
         "page_range": page_range,
     }
@@ -265,6 +267,7 @@ def windows(request):
 def linux(request):
     query = request.GET.get("q", None)
     qs = PostModel.objects.all().order_by('-publish_date').filter(kind="linux")
+    top_list = PostModel.objects.all().annotate(total_like = Count('like')).order_by('-total_like')[:3]
     paginator = Paginator(qs, 6)
     page = request.GET.get('page')
 
@@ -289,6 +292,7 @@ def linux(request):
                 )
     context = {
         "object_list": qs,
+        "top_list": top_list,
         "items": items,
         "page_range": page_range,
     }
@@ -298,6 +302,7 @@ def linux(request):
 def technology(request):
     query = request.GET.get("q", None)
     qs = PostModel.objects.all().order_by('-publish_date').filter(kind="technology")
+    top_list = PostModel.objects.all().annotate(total_like = Count('like')).order_by('-total_like')[:3]
     paginator = Paginator(qs, 6)
     page = request.GET.get('page')
 
@@ -322,6 +327,7 @@ def technology(request):
                 )
     context = {
         "object_list": qs,
+        "top_list": top_list,
         "items": items,
         "page_range": page_range,
     }
@@ -331,6 +337,7 @@ def technology(request):
 def entertain(request):
     query = request.GET.get("q", None)
     qs = PostModel.objects.all().order_by('-publish_date').filter(kind="entertain")
+    top_list = PostModel.objects.all().annotate(total_like = Count('like')).order_by('-total_like')[:3]
     paginator = Paginator(qs, 6)
     page = request.GET.get('page')
 
@@ -355,6 +362,7 @@ def entertain(request):
                 )
     context = {
         "object_list": qs,
+        "top_list": top_list,
         "items": items,
         "page_range": page_range,
     }

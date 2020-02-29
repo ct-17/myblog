@@ -1,73 +1,61 @@
 {% extends "page/page.html" %}
 
+{% load staticfiles %}
+{% load i18n %}
+
 {% block title %}  CT | Tìm Kiếm {% endblock %}
 
 {% block content %}
-    <div style="background-color: #F4A460">
-        <div class='row mb-3 p-3 '>
-            {% if query %}
-                <div class='col-12 text-center'>
-                    Từ khóa:<b> {{ query }}</b>
-                </div>
-            {% else %}
-                <div class='col-12 text-center'>
-                    <h1>Bạn chưa nhập trừ khóa.</h1>
-                </div>
-            {% endif %}
-        </div>
+<div class=gdlr-core-pbf-sidebar-content-inner data-skin="Blog List">
+    <div class=gdlr-core-pbf-element>
+        <div class="gdlr-core-blog-item gdlr-core-item-pdb clearfix  gdlr-core-style-blog-full">
+            <div class="gdlr-core-blog-item-holder gdlr-core-js-2 clearfix" data-layout=fitrows>
+                {% if query %}
+                    {% for i in object_list %}
+                    <div class="gdlr-core-item-list gdlr-core-blog-full  gdlr-core-item-mglr gdlr-core-style-left">
+                        <div class="gdlr-core-blog-thumbnail-wrap clearfix">
+                            <div class="gdlr-core-blog-thumbnail gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover">
+                                {% if i.img %}
+                                    <a href="/{{ i.kind }}/{{ i.slug }}/"><img src="{{ i.img.url }}" alt width=1000 height=486 title=pexels-photo-871053></a>
+                                {% else %}
+                                    <a href="/{{ i.kind }}/{{ i.slug }}/"><img src="{% static 'images/blog/defaults/pexels-photo-1000x486.jpg' %}" alt width=1000 height=486 title=pexels-photo-871053></a>
+                                {% endif %}
+                            </div>
+                            <a href="#" class=zilla-likes id=zilla-likes-6613 title="Like post"><span class=zilla-likes-count>{{ i.like.count }}</span> <span class=zilla-likes-postfix></span></a>
+                        </div>
+                        <div class=gdlr-core-blog-full-content-wrap>
 
-        <table class="table table-hover table-dark">
-            <tbody>
-            {% if query %}
-                {% for i in object_list %}
-                    <tr>
-                        <td>
-                            <a class="text-white" href="/blog/{{ i.id }}/" style="text-decoration: none;">
-                                <div class="row">
-                                    <div class="col-8 col-sm-8 col-md-10">{{ i.title }}</div>
-                                    <div class="col-4 col-sm-4 col-md-2"><p>{{ i.timestamp | date:"d/m/Y" }}</p></div>
+                            <div class="gdlr-core-blog-full-head clearfix">
+                                <div class=gdlr-core-blog-full-head-right>
+                                    <h1 class="gdlr-core-blog-title gdlr-core-skin-title" id="h3_2207_3">
+                                        <a href="/{{ i.kind }}/{{ i.slug }}/">{{ i.title }}</a>
+                                    </h1>
+                                    <div class="gdlr-core-blog-info-wrapper gdlr-core-skin-divider">
+                                        <span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-author">
+                                            <img alt="Author" src="{% static 'images/admin/account.svg' %}" class='avatar avatar-50 photo' height=50 width=50>
+                                            <a href="#" title="Author" rel=author>{{ i.author }}</a>
+                                        </span>
+                                        <span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-date">
+                                            <a href="#" title="Date">{{ i.timestamp | date:"d/m/Y" }}</a>
+                                        </span>
+                                        <span class="gdlr-core-blog-info gdlr-core-blog-info-font gdlr-core-skin-caption gdlr-core-blog-info-category">
+                                            <a href="#" title="Tag" rel=tag>{{ i.kind }}</a>
+                                        </span>
+                                    </div>
                                 </div>
-                            </a>
-                        </td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td>
-                            <p class="text-center">Không tìm thấy từ khóa.</p>
-                        </td>
-                    </tr>
-                {% endfor %}
-            {% endif %}
-            </tbody>
-        </table>
-        {% if object_list.has_other_pages %}
-        <div class="col-6 offset-3 text-center pagination-set">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    {% if object_list.has_previous %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ object_list.previous_page_number }}" style="background-color: #696969; color: #ffffff"><<</a>
-                        </li>
-                    {% else %}
-                        <li class="page-item disabled ">
-                            <a class="page-link" style="background-color: #696969; color: #ffffff"><span ><<</span></a>
-                        </li>
-                    {% endif %}
-                    {% for i in page_range %}
-                        {% if object_list.number == i %}
-                            <li class="page-item active"><a class="page-link" href="#" style="background-color: #0033CC">{{i}} <span class="sr-only">(current)</span></a></li>
-                        {% else %}
-                            <li class="page-item"><a class="page-link" href="?page={{i}}" style="background-color: #696969; color: #ffffff">{{i}}</a></li>
-                        {% endif %}
+                            </div>
+                            <div class=gdlr-core-blog-content>{{ i.description }}</div>
+                        </div>
+                    </div>
+                    {% empty %}
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <h5 class="text-center">{% trans "Keyword" %} <i><font color="red"> {{ query }} </font></i> {% trans "not found" %}</h5>
+                        </div>
                     {% endfor %}
-                    {% if object_list.has_next %}
-                        <li class="page-item"><a class="page-link" aria-label="Next" href="?page={{object_list.next_page_number}}" style="background-color: #696969; color: #ffffff">>></a></li>
-                    {% else %}
-                        <li class="page-item disabled " ><a class="page-link" style="background-color: #696969; color: #ffffff"><span>>></span></a></li>
-                    {% endif %}
-                </ul>
-            </nav>
+                {% endif %}
+            </div>
+            {% include "blog/paginator.html" %}
         </div>
-        {% endif %}
     </div>
+</div>
 {% endblock %}
