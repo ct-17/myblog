@@ -141,9 +141,10 @@ post_save.connect(blog_post_model_post_save_receiver, sender=PostModel)
 
 class Comment(models.Model):
     post = models.ForeignKey(PostModel, on_delete= models.CASCADE, related_name='comments')
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete= models.CASCADE, related_name='author_blog2')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete= models.CASCADE, verbose_name=_('Author:'), related_name='author_blog2')
     body = models.TextField(verbose_name=_("Comment"))
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now=False, auto_now_add=True)
+    active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = _('Comment')

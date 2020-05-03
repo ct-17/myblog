@@ -13,6 +13,9 @@ from django.views.generic.list import ListView
 from django.views.generic.base import RedirectView
 from django.db.models import Count
 from django.views.generic import TemplateView
+from django.views.generic.edit import CreateView
+from django.views.generic.edit import FormMixin
+from django.urls import reverse
 
 from .forms import CommentForm, PostModelForm
 from .models import Comment, PostModel
@@ -66,16 +69,33 @@ def post_model_update_view(request, id=None):
     template = "blog/update.html"
     return render(request, template, context)
 
-
-class BlogDetailSlugView(DetailView):
-
+class BlogDetailSlugView(FormMixin, DetailView):
     template_name = "blog/details.html"
-    queryset = PostModel.objects.all()
-    
+    model = PostModel
+    form_class = CommentForm
+
+    def get_success_url(self):
+        return reverse('blog:detail', kwargs={'kind': self.object.kind, 'slug': self.object.slug})
+
     def get_context_data(self, **kwargs):
         context = super(BlogDetailSlugView, self).get_context_data(**kwargs)
         context['top_list'] = PostModel.objects.all().annotate(total_like = Count('like')).order_by('-total_like')[:3]
+        context['form'] = CommentForm(self.request.POST, initial={'post': self.object, 'author': self.request.user})
         return context
+    
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        form.author = self.request.user
+        form.post = self.get_object()
+        form.save()
+        return super(BlogDetailSlugView, self).form_valid(form)
 
 def post_model_delete_view(request, id=None):
     obj = get_object_or_404(PostModel, id=id)
@@ -179,20 +199,6 @@ def post_model_robust_view(request, id=None):
             return HttpResponseRedirect("/blog/{num}".format(obj.id))
         context["form"] - PostModelForm()
     return render(request, template, context)
-
-def comments(request, id):
-    post = get_object_or_404(PostModel, id=id)
-    if request.method == 'POST':
-        form = CommentForm(request.POST, author=request.user)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.author = form.author
-            comment.save()
-            return redirect('blog:detail', id=post.id)
-    else:
-        form = CommentForm()
-        return render(request, 'blog/comments.html', {"form":form})
 
 def Home(request):
     query = request.GET.get("q", None)
