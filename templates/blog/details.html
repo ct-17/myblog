@@ -1,12 +1,13 @@
 {% extends "page/page.html" %}
 {% load staticfiles %}
+{% load i18n %}
 {% block title %}Blog ct | {{ object.title }}{% endblock %}
 
 {% block content %}
     <div class=gdlr-core-pbf-element>
         <div class="gdlr-core-blog-item gdlr-core-item-pdb clearfix  gdlr-core-style-blog-full">
             <div class="gdlr-core-blog-item-holder gdlr-core-js-2 clearfix" data-layout=fitrows>
-                <div class="gdlr-core-item-list gdlr-core-blog-full  gdlr-core-item-mglr gdlr-core-style-left">
+                <div class="gdlr-core-item-list gdlr-core-blog-full gdlr-core-style-left">
                     <div class=gdlr-core-blog-full-content-wrap>
                         <div class="gdlr-core-blog-full-head clearfix">
                             <div class=gdlr-core-blog-full-head-right>
@@ -30,8 +31,6 @@
                                         {% else %}
                                             <a href="#" class="ct-button ct-button-like"><i class="fa fa-heart"></i> {{ object.like.count }} | Like</a>
                                         {% endif %}
-                                        <!-- <p><a class='like-btn' data-href='{{ object.get_api_like_url }}' data-likes='{{ object.like.count }}' href='{{ object.get_like_url }}'>{{ object.like.count }} </a></p>
-                                        <p><div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div> -->
                                     </span>
                                 </div>
                             </div>
@@ -40,6 +39,83 @@
                     </div>
                 </div>
             </div>
+            <hr  width="100%" align="center" size="20px"/>
+        </div>
+
+        <!-- Commnet form -->
+        <div class="form_commnet">
+            {% if request.user.is_authenticated %}
+            <label for="comments">Comments</label>
+            <form method='POST' action="{% url 'blog:detail' kind=object.kind slug=object.slug %}">
+                {% csrf_token %}
+                {{ form.body }}
+                <input type="submit" value='{% trans "comment" %}' id="button_commnet" />
+            </form>
+            {% else %}
+                <label for="comments">Comments</label>
+                <form action=".">
+                    <textarea name="body" cols="40" rows="10" required="" id="id_body"></textarea>
+                    <a type="submit" href="{% url 'register' %}" id="button_commnet">{% trans "COMMENT" %}</a>
+                </form>
+            {% endif %}
+        </div>
+        <br/>
+
+        <!-- list comments -->
+        <div class="comments" direction="left">
+            {% for comment in object.comments.all %}
+                <div class="comment">
+                    <div class="img_author">
+                        <img src="{% static "images/blog/defaults/user.svg" %}" />
+                    </div>
+                    <div class="body_comment" direction="right">
+                        <span class="size_text_author">{{ comment.author }}</span>
+                        <div>
+                            <span class="size_text_content">{{ comment.body|safe }}</span>
+                        </div>
+                        <div class="infor_comment">
+                            <a id="btn_reply" onclick="OpenFormReply()" href="#">{% trans "reply" %}</a>
+                            <span aria-hidden="true"> · </span>
+                            <small>{{ comment.date|timesince }}</small>
+                        </div>
+                        <div class="replys">
+                            <div id="form_reply">
+                                {% if request.user.is_authenticated %}
+                                    <form method='POST' action="{% url 'blog:detail' kind=object.kind slug=object.slug %}">
+                                        {% csrf_token %}
+                                        {{ form.body }}
+                                        <input type="hidden" name='parent_id' value="{{ comment.id }}" />
+                                        <input type="submit" value='{% trans "reply" %}' id="button_reply" />
+                                    </form>
+                                {% else %}
+                                    <form action=".">
+                                        <textarea name="body" cols="40" rows="10" required="" id="id_content_reply"></textarea>
+                                        <a type="submit" href="{% url 'register' %}" id="button_reply">{% trans "REPLY" %}</a>
+                                    </form>
+                                {% endif %}
+                            </div>
+                            <div class="reply">
+                                {% for reply in comment.replys.reply %}
+                                    <div class="comment">
+                                        <div class="img_author">
+                                            <img src="{% static "images/blog/defaults/user.svg" %}" />
+                                        </div>
+                                        <div direction="right">
+                                            <span class="size_text_author">{{ reply.author }}</span>
+                                            <div>
+                                                <span class="size_text_content">{{ reply.body|safe }}</span>
+                                            </div>
+                                            <div class="infor_comment">
+                                                <small>{{ reply.date|timesince }}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock content %}

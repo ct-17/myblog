@@ -94,6 +94,16 @@ class BlogDetailSlugView(FormMixin, DetailView):
     def form_valid(self, form):
         form.author = self.request.user
         form.post = self.get_object()
+        reply = None
+        try:
+            parent_id = int(self.request.POST.get("parent_id"))
+        except:
+            parent_id = None
+        if parent_id:
+            reply = Comment.objects.filter(id= parent_id)
+            if reply.exists():
+                reply = reply.first()
+        form.parent = reply
         form.save()
         return super(BlogDetailSlugView, self).form_valid(form)
 

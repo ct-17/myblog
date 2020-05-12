@@ -138,6 +138,19 @@ def blog_post_model_post_save_receiver(sender, instance, created, *args, **kwarg
 
 post_save.connect(blog_post_model_post_save_receiver, sender=PostModel)
 
+class CommentManager(models.Manager):
+    def all(self):
+        qs = super(CommentManager, self).filter(parent=None)
+        return qs
+    
+    def reply(self):
+        qs = super(CommentManager, self).filter(parent=self.instance)
+        return qs
+
+    def filter_by_instance(self, instance):
+        obj_id = instance.id
+        qs = super(CommentManager, self).filter(post= obj_id).filter(parent=None)
+        return qs
 
 class Comment(models.Model):
     post = models.ForeignKey(PostModel, on_delete= models.CASCADE, related_name='comments')
@@ -145,7 +158,20 @@ class Comment(models.Model):
     body = models.TextField(verbose_name=_("Comment"))
     date = models.DateTimeField(auto_now=False, auto_now_add=True)
     active = models.BooleanField(default=True)
+    parent = models.ForeignKey("self", blank=True, null=True, on_delete= models.CASCADE, related_name='replys')
+
+    objects = CommentManager()
 
     class Meta:
         verbose_name = _('Comment')
         verbose_name_plural = _('Comment')
+        ordering = ['-date']
+
+    def replys(self):
+        return Comment.objects.filter(parent=self)
+
+    @property
+    def is_parent(self):
+        if self.parent is not None:
+            return False
+        return True

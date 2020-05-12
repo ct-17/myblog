@@ -21,6 +21,7 @@ from accounts.views import RegisterView, LoginView
 from django.contrib.auth.views import LogoutView
 from django.conf.urls import url, include
 from django.conf.urls.i18n import i18n_patterns
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
@@ -29,6 +30,7 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path('froala_editor/', include('froala_editor.urls')),
+    path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),
     path('search/', include(('search.urls', 'search'), namespace='search')),
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('accounts/register/', RegisterView.as_view(), name='register'),
