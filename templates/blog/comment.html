@@ -1,0 +1,77 @@
+{% load staticfiles %}
+{% load i18n %}
+
+<div class="form_commnet">
+    {% if request.user.is_authenticated %}
+    <label for="comments">Comments</label>
+    <form class='ajax-form-comment' method='POST' action="{% url 'blog:detail' kind=object.kind slug=object.slug %}" data-url='{{ request.build_absolute_uri|safe }}' id="content_comment">
+        {% csrf_token %}
+        {{ form.body }}
+        <input type="submit" value='{% trans "comment" %}' class="button_comment" />
+    </form>
+    {% else %}
+        <label for="comments">Comments</label>
+        <form action=".">
+            <textarea name="body_comment" cols="40" rows="10" required="" class="content_comment"></textarea>
+            <a type="submit" href="{% url 'login' %}" class="button_comment">{% trans "COMMENT" %}</a>
+        </form>
+    {% endif %}
+</div>
+<br/>
+
+<!-- list comments -->
+<div class="comments" direction="left">
+    {% for comment in object.comments.all %}
+        <div class="comment">
+            <div class="img_author">
+                <img src="{% static "images/blog/defaults/user.svg" %}" />
+            </div>
+            <div class="body_comment" direction="right">
+                <span class="size_text_author">{{ comment.author }}</span>
+                <div>
+                    <span class="size_text_content">{{ comment.body|safe }}</span>
+                </div>
+                <div class="infor_comment">
+                    <a class="btn_reply" href="#">{% trans "reply" %}</a>
+                    <span aria-hidden="true"> · </span>
+                    <small>{{ comment.date|timesince }}</small>
+                </div>
+                <div class="replys">
+                    <div class="form_reply">
+                        {% if request.user.is_authenticated %}
+                            <form class='ajax-form-comment' method='POST' action="{% url 'blog:detail' kind=object.kind slug=object.slug %}" data-url='{{ request.build_absolute_uri|safe }}'>
+                                {% csrf_token %}
+                                {{ form.body }}
+                                <input type="hidden" name='parent_id' value="{{ comment.id }}" />
+                                <input type="submit" value='{% trans "reply" %}' class="button_reply" name="{{ comment.id }}" />
+                            </form>
+                        {% else %}
+                            <form action=".">
+                                <textarea name="body_reply" cols="40" rows="10" required="" class="id_content_reply"></textarea>
+                                <a type="submit" href="{% url 'login' %}" class="button_reply">{% trans "REPLY" %}</a>
+                            </form>
+                        {% endif %}
+                    </div>
+                    <div class="reply_list_{{ comment.id }}">
+                        {% for reply in comment.replys.reply %}
+                            <div class="comment">
+                                <div class="img_author">
+                                    <img src="{% static "images/blog/defaults/user.svg" %}" />
+                                </div>
+                                <div direction="right">
+                                    <span class="size_text_author">{{ reply.author }}</span>
+                                    <div>
+                                        <span class="size_text_content">{{ reply.body|safe }}</span>
+                                    </div>
+                                    <div class="infor_comment">
+                                        <small>{{ reply.date|timesince }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

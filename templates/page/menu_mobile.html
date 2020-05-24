@@ -49,6 +49,11 @@
                                     {% endif %}
                                 </ul>
                             </li>
+                            {% if user.is_authenticated %}
+                                <li class="menu-item"><a href="{{ logout_url }}">{% trans "Logout" %}</a></li>
+                            {% else %}
+                                <li class="menu-item"><a href="{{ login_url }}">{% trans "Login" %}</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>

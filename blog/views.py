@@ -16,6 +16,8 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import FormMixin
 from django.urls import reverse
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 
 from .forms import CommentForm, PostModelForm
 from .models import Comment, PostModel
@@ -105,7 +107,23 @@ class BlogDetailSlugView(FormMixin, DetailView):
                 reply = reply.first()
         form.parent = reply
         form.save()
-        return super(BlogDetailSlugView, self).form_valid(form)
+        response = super(BlogDetailSlugView, self).form_valid(form)
+        if self.request.is_ajax():
+            user = self.request.user
+            
+            data = {
+                'messenge': "Successfully submitted form data."
+            }
+            return JsonResponse(data)
+        else:
+            return response
+    
+    def form_invalid(self, form):
+        response = super(BlogDetailSlugView, self).form_invalid(form)
+        if self.request.is_ajax():
+            return JsonResponse(form.errors, status=400)
+        else:
+            return response
 
 def post_model_delete_view(request, id=None):
     obj = get_object_or_404(PostModel, id=id)
