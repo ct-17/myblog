@@ -23,21 +23,23 @@
 <div class="comments" direction="left">
     {% for comment in object.comments.all %}
         <div class="comment">
-            <div class="img_author">
-                <img src="{% static "images/blog/defaults/user.svg" %}" />
-            </div>
             <div class="body_comment" direction="right">
-                <span class="size_text_author">{{ comment.author }}</span>
-                <div>
-                    <span class="size_text_content">{{ comment.body|safe }}</span>
-                </div>
-                <div class="infor_comment">
-                    <a class="btn_reply" href="#">{% trans "reply" %}</a>
-                    <span aria-hidden="true"> · </span>
-                    <small>{{ comment.date|timesince }}</small>
+                <div class="content_comments">
+                    <div class="img_author">
+                        <img src="{% static "images/blog/defaults/user.svg" %}" />
+                    </div>
+                    <span class="size_text_author">{{ comment.author }}</span>
+                    <div>
+                        <span class="size_text_content">{{ comment.body|safe }}</span>
+                    </div>
+                    <div class="infor_comment">
+                        <a class="btn_reply" id="btn_reply_{{comment.id}}" name="{{comment.id}}" href="javascript:;">{% trans "reply" %}</a>
+                        <span aria-hidden="true"> · </span>
+                        <small>{{ comment.date|timesince }}</small>
+                    </div>
                 </div>
                 <div class="replys">
-                    <div class="form_reply">
+                    <div class="form_reply form_reply_{{comment.id}}">
                         {% if request.user.is_authenticated %}
                             <form class='ajax-form-comment' method='POST' action="{% url 'blog:detail' kind=object.kind slug=object.slug %}" data-url='{{ request.build_absolute_uri|safe }}'>
                                 {% csrf_token %}

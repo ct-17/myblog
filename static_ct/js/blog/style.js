@@ -1,6 +1,23 @@
-// function OpenFormReply() {
-//     document.getElementById("form_reply").style.display = "block";
-//   }
+$(document).ready(function(){
+    var $button_reply = $(".btn_reply")
+    $button_reply.click(function(event){
+        var $id_form_reply = ".form_reply_" + event.target.name
+        var pageURL = window.location.href
+        if (pageURL){
+            $.ajax({
+                url: pageURL,
+                method: "GET",
+                data: {},
+                success: function(data){
+                    $("".replace("",$id_form_reply)).show();
+                }, error: function(error){
+                    console.log(error)
+                    console.log("error show form reply.")
+                }
+            });
+        }
+    });
+});
 
 $(document).ready(function(){
     function updateText(btn, newCount, verb){
